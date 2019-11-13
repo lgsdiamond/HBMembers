@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#3f51b5</color>
+    <color name="colorPrimaryDark">#303f9f</color>
+    <color name="colorCaret">#a02060</color>
+
+    <color name="company_a">#d0ffdddd</color>
+    <color name="company_b">#d0ddddff</color>
+    <color name="major">#d0ddffdd</color>
+    <color name="school">#d0ddffff</color>
+    <color name="member">#d0eeffff</color>
+
+    <color name="txtLabel">#ff1010a0</color>
+    <color name="message">#e0f0f0f0</color>
+    <color name="list">#d0ffffff</color>
+    <color name="button">#e0fde0</color>
+    <color name="search_highlight">#ffffc0a0</color>
+    <color name="company_b_item">#209020</color>
+
+    <color name="back_company12">#D0E0E0FF</color>
+    <color name="back_company34">#D0E0FFE0</color>
+    <color name="back_school">#D0FFFFE0</color>
+    <color name="back_major">#D0E0FFFF</color>
+    <color name="back_branch">#d0ffe0ff</color>
+</resources>

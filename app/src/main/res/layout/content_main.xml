@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:showIn="@layout/app_bar_main">
+
+    <fragment
+        android:id="@+id/nav_host_fragment"
+        android:name="androidx.navigation.fragment.NavHostFragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:defaultNavHost="true"
+        app:layout_constraintBottom_toTopOf="@+id/loActionButtons"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:navGraph="@navigation/mobile_navigation" />
+
+    <LinearLayout
+        android:id="@+id/loActionButtons"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/button"
+        android:hapticFeedbackEnabled="true"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <ImageButton
+            android:id="@+id/btnCompany_12"
+            style="@style/trans_button"
+            android:layout_weight="1"
+            android:contentDescription="@string/desc_company_12"
+            android:src="@drawable/ic_company_12" />
+
+        <ImageButton
+            android:id="@+id/btnCompany_34"
+            style="@style/trans_button"
+            android:layout_weight="1"
+            android:contentDescription="@string/desc_company_34"
+            android:src="@drawable/ic_company_34" />
+
+        <ImageButton
+            android:id="@+id/btnSchool"
+            style="@style/trans_button"
+            android:layout_weight="1"
+            android:contentDescription="@string/desc_school"
+            android:src="@drawable/ic_school" />
+
+        <ImageButton
+            android:id="@+id/btnMajor"
+            style="@style/trans_button"
+            android:layout_weight="1"
+            android:contentDescription="@string/desc_major"
+            android:src="@drawable/ic_major" />
+
+        <ImageButton
+            android:id="@+id/btnBranch"
+            style="@style/trans_button"
+            android:layout_weight="1"
+            android:contentDescription="@string/desc_branch"
+            android:src="@drawable/ic_branch" />
+
+        <ImageButton
+            android:id="@+id/btnBoard"
+            style="@style/trans_button"
+            android:layout_weight="1"
+            android:contentDescription="@string/desc_board"
+            android:src="@drawable/ic_board" />
+
+        <ImageButton
+            android:id="@+id/btnReport"
+            style="@style/trans_button"
+            android:layout_weight="1"
+            android:contentDescription="@string/desc_report"
+            android:src="@drawable/ic_report" />
+
+        <ImageButton
+            android:id="@+id/btnMessage"
+            style="@style/trans_button"
+            android:layout_weight="1"
+            android:contentDescription="@string/desc_message"
+            android:src="@drawable/ic_message" />
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

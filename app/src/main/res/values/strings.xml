@@ -1,0 +1,60 @@
+<resources>
+    <string name="app_name">한백인</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="update_date">2019.11.15</string>
+
+    <string name="title_login">"한백인" 앱 로그인</string>
+
+    <string name="app_intro">®HBMembers·한백인</string>
+    <string name="author_email">lgsdiamond@gmail.com</string>
+
+    <string name="desc_member">한백인 찾기</string>
+    <string name="desc_company_12">기훈중대로 봅니다.</string>
+    <string name="desc_company_34">졸업중대로 봅니다.</string>
+    <string name="desc_school">출신고등학교로 봅니다.</string>
+    <string name="desc_major">생도 때 전공으로 봅니다.</string>
+    <string name="desc_branch">병과로 봅니다.</string>
+    <string name="desc_board">한백동기회 임원 및 회칙</string>
+    <string name="desc_report">한백회보를 봅니다.</string>
+    <string name="desc_message">동기회 임원에게 SMS를 보낼수 있습니다.</string>
+
+    <string name="title_member">한백인 정보 및 찾기</string>
+    <string name="title_company_12">기훈중대로 보는 한백인</string>
+    <string name="title_company_34">졸업중대로 보는 한백인</string>
+    <string name="title_school">출신고교로 보는 한백인</string>
+    <string name="title_major">전공으로 보는 한백인</string>
+    <string name="title_branch">병과로 보는 한백인</string>
+    <string name="title_board">한백동기회 임원 및 회칙</string>
+    <string name="title_report">한백회보 및 동기회 소식</string>
+    <string name="title_message">동기회에 SMS 보내기</string>
+
+
+    <string name="desc_call">현재 회원에게 전화를 겁니다.</string>
+    <string name="desc_contact_number">현재 회원의 연락처를 변경합니다.</string>
+    <string name="desc_SMS">현재 회원에게 SMS를 보냅니다.</string>
+    <string name="desc_kakao_link">메시지를 작성하여 카카오톡에 공유합니다.</string>
+    <string name="desc_custom_memo">메모를 작성합니다.</string>
+    <string name="desc_member_pic">회원의 사진을 봅니다.</string>
+
+    <string name="menu_member">회원 찾기</string>
+    <string name="menu_company_12">기훈중대</string>
+    <string name="menu_company_34">졸업중대</string>
+    <string name="menu_school">출신고등학교</string>
+    <string name="menu_major">전공</string>
+    <string name="menu_branch">병과 및 직능</string>
+
+    <string name="menu_board_name">한백동기회</string>
+    <string name="menu_board">한백동기회 임원 및 동기회칙</string>
+    <string name="menu_report">한백회보 보기</string>
+    <string name="menu_naverband">밴드(Band) 앱 열기</string>
+    <string name="menu_kakaotalk">카카오톡 앱 열기</string>
+    <string name="menu_finish">"한백인" 앱 종료</string>
+
+    <string name="menu_login">사용자 로그인</string>
+    <string name="menu_sound">사운드 끔</string>
+    <string name="menu_message">동기회에 SMS 보내기</string>
+    <string name="menu_update">앱 업데이트 확인</string>
+</resources>

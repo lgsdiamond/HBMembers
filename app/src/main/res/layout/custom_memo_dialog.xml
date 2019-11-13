@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/loCustomMemo"
+    style="@style/full_screen_dialog"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/btnCancelContent"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:layout_weight="1.0"
+            android:text="취소"
+            android:textSize="@dimen/_16sp" />
+
+        <Button
+            android:id="@+id/btnSaveNewContent"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:layout_weight="1.0"
+            android:text="내용 저장"
+            android:textSize="@dimen/_16sp" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/labNewContent"
+        style="@style/member_label"
+        android:layout_marginBottom="4dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginTop="8dp"
+        android:text="새로운 내용" />
+
+    <EditText
+        android:id="@+id/edtNewContent"
+        style="@style/edit_box"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="top"
+        android:layout_marginBottom="20dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="8dp"
+        android:gravity="top|left"
+        android:hint="새로운 내용을 입력하세요"
+        android:inputType="text|textMultiLine"
+        android:labelFor="@id/edtMessage"
+        android:singleLine="false"
+        android:text=""
+        android:textSize="@dimen/_20sp" />
+
+    <TextView
+        android:id="@+id/labOldContent"
+        style="@style/member_label"
+        android:layout_marginBottom="10dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:text="현재 내용" />
+
+    <TextView
+        android:id="@+id/txtOldContent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="8dp"
+        android:gravity="top|left"
+        android:hint="현재 저장된 내용은 없습니다."
+        android:singleLine="false"
+        android:text=""
+        android:textColor="@android:color/darker_gray"
+        android:textSize="@dimen/_20sp" />
+
+</LinearLayout>

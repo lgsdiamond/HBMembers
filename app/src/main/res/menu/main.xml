@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/action_login"
+        android:icon="@drawable/ic_login"
+        android:orderInCategory="100"
+        android:title="@string/menu_login"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_sound"
+        android:icon="@drawable/ic_sound_on"
+        android:orderInCategory="100"
+        android:title="@string/menu_sound"
+        app:showAsAction="always" />
+    <item
+        android:id="@+id/action_update"
+        android:icon="@drawable/ic_update"
+        android:orderInCategory="100"
+        android:title="@string/menu_update"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_naverband"
+        android:icon="@drawable/ic_naverband"
+        android:orderInCategory="100"
+        android:title="@string/menu_naverband" />
+    <item
+        android:id="@+id/action_kakaotalk"
+        android:icon="@drawable/ic_kakaotalk"
+        android:orderInCategory="100"
+        android:title="@string/menu_kakaotalk" />
+    <item
+        android:id="@+id/action_finish"
+        android:icon="@drawable/ic_finish"
+        android:orderInCategory="100"
+        android:title="@string/menu_finish"
+        app:showAsAction="never" />
+</menu>

@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "970994424824",
+    "firebase_url": "https://hbmembers-2cebd.firebaseio.com",
+    "project_id": "hbmembers-2cebd",
+    "storage_bucket": "hbmembers-2cebd.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:970994424824:android:0a899f0bb927ebe282140d",
+        "android_client_info": {
+          "package_name": "com.lgsdiamond.hbmembers"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "970994424824-4ug48127ujbsugraebrgfakn5laem80h.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCpTjiwSKaElwZJQ_MTVJtApfJp2ex_V8o"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "970994424824-4ug48127ujbsugraebrgfakn5laem80h.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

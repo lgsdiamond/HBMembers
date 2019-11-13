@@ -1,0 +1,367 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/loMemberMain"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/member"
+    android:focusable="true"
+    android:focusableInTouchMode="true"
+    android:visibility="visible"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="com.lgsdiamond.hbmembers.ui.member.MemberFragment">
+
+    <TextView
+        android:id="@+id/labFineMember"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="8dp"
+        android:fontFamily="serif"
+        android:gravity="start"
+        android:text="회원 이름을 입력하세요."
+        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+        android:textSize="@dimen/_18sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/edtFindName"
+        style="@style/edit_box"
+        android:layout_width="0dp"
+        android:layout_marginRight="8dp"
+        android:hint="찾을 회원 이름 입력"
+        android:imeOptions="actionSearch"
+        android:inputType="text"
+        android:text=""
+        android:textSize="@dimen/_32sp"
+        app:layout_constraintEnd_toStartOf="@+id/btnCall"
+        app:layout_constraintStart_toStartOf="@id/labFineMember"
+        app:layout_constraintTop_toBottomOf="@id/labFineMember" />
+
+    <ImageButton
+        android:id="@+id/btnMemberPic"
+        style="@style/trans_button"
+        android:layout_width="36dp"
+        android:layout_height="36dp"
+        android:contentDescription="@string/desc_member_pic"
+        android:src="@drawable/ic_member"
+        app:layout_constraintBottom_toTopOf="@id/btnMemberMemo"
+        app:layout_constraintEnd_toEndOf="@id/btnMemberMemo" />
+
+    <ImageButton
+        android:id="@+id/btnContact"
+        style="@style/trans_button"
+        android:layout_width="@dimen/_36sp"
+        android:layout_height="@dimen/_36sp"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:contentDescription="@string/desc_contact_number"
+        android:gravity="center"
+        android:src="@drawable/ic_contact_number"
+        app:layout_constraintBottom_toBottomOf="@+id/txtContact"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/txtContact" />
+
+    <TextView
+        android:id="@+id/txtContact"
+        style="@style/member_answer_single"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="8dp"
+        android:fontFamily="serif"
+        android:text="Contact"
+        android:textAppearance="@style/TextAppearance.AppCompat"
+        android:textColor="@color/colorPrimary"
+        android:textSize="@dimen/_24sp"
+        app:layout_constraintStart_toEndOf="@+id/btnContact"
+        app:layout_constraintTop_toBottomOf="@+id/edtFindName" />
+
+    <Button
+        android:id="@+id/btnSearch"
+        style="@style/trans_button"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/_42sp"
+        android:drawableLeft="@drawable/ic_search"
+        android:drawablePadding="5dp"
+        android:foregroundGravity="center_vertical|center_horizontal"
+        android:gravity="center_vertical|start"
+        android:text="찾기"
+        android:textAlignment="textStart"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toTopOf="@id/btnMemberMemo"
+        app:layout_constraintEnd_toStartOf="@id/btnMemberPic"
+        app:layout_constraintStart_toStartOf="@+id/btnCall" />
+
+    <ImageButton
+        android:id="@+id/btnCall"
+        style="@style/trans_button"
+        android:layout_width="36dp"
+        android:layout_height="36dp"
+        android:contentDescription="@string/desc_call"
+        android:src="@drawable/ic_phone_call"
+        app:layout_constraintBottom_toBottomOf="@id/btnMemberMemo"
+        app:layout_constraintEnd_toStartOf="@+id/btnSMS" />
+
+    <ImageButton
+        android:id="@+id/btnSMS"
+        style="@style/trans_button"
+        android:layout_width="36dp"
+        android:layout_height="36dp"
+        android:contentDescription="@string/desc_SMS"
+        android:src="@drawable/ic_send_sms"
+        app:layout_constraintBottom_toBottomOf="@id/btnMemberMemo"
+        app:layout_constraintEnd_toStartOf="@+id/btnKakaoLink" />
+
+    <ImageButton
+        android:id="@+id/btnKakaoLink"
+        style="@style/trans_button"
+        android:layout_width="36dp"
+        android:layout_height="36dp"
+        android:contentDescription="@string/desc_kakao_link"
+        android:src="@drawable/ic_kakao_link"
+        app:layout_constraintBottom_toBottomOf="@id/btnMemberMemo"
+        app:layout_constraintEnd_toStartOf="@id/btnMemberMemo" />
+
+    <ImageButton
+        android:id="@+id/btnMemberMemo"
+        style="@style/trans_button"
+        android:layout_width="36dp"
+        android:layout_height="36dp"
+        android:layout_marginRight="8dp"
+        android:background="@android:color/transparent"
+        android:contentDescription="@string/desc_custom_memo"
+        android:src="@drawable/ic_member_memo"
+        app:layout_constraintBottom_toTopOf="@id/txtContact"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <ScrollView
+        android:id="@+id/svMemberInfo"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:background="@color/back_school"
+        app:layout_constraintBottom_toTopOf="@id/labMemberMemo"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtContact"
+        app:layout_constraintVertical_bias="0.0">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/loMemberInfo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/labCompany_12"
+                style="@style/member_label"
+                android:text="기훈중대"
+                app:layout_constraintBottom_toBottomOf="@+id/txtCompany_12"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/txtCompany_12" />
+
+            <TextView
+                android:id="@+id/txtCompany_12"
+                style="@style/member_answer_single"
+                android:layout_marginLeft="8dp"
+                android:layout_marginTop="8dp"
+                android:gravity="top"
+                android:text="Company_12"
+                app:layout_constraintStart_toEndOf="@+id/labCompany_12"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <com.lgsdiamond.hbmembers.ClickableNameTextView
+                android:id="@+id/txtCompany_12_all"
+                style="@style/member_answer_all"
+                android:layout_marginLeft="8dp"
+                android:background="#80ffffff"
+                android:text="Company_12_all"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/txtCompany_12" />
+
+            <TextView
+                android:id="@+id/labCompany_34"
+                style="@style/member_label"
+                android:text="졸업중대"
+                app:layout_constraintBottom_toBottomOf="@+id/txtCompany_34"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/txtCompany_34" />
+
+            <TextView
+                android:id="@+id/txtCompany_34"
+                style="@style/member_answer_single"
+                android:layout_marginLeft="8dp"
+                android:layout_marginTop="8dp"
+                android:gravity="top"
+                android:text="Company_34"
+                app:layout_constraintStart_toEndOf="@+id/labCompany_34"
+                app:layout_constraintTop_toBottomOf="@+id/txtCompany_12_all" />
+
+            <TextView
+                android:id="@+id/txtCompany_34_pic"
+                style="@style/list_item"
+                android:layout_gravity="top|center_horizontal"
+                android:layout_marginLeft="6dp"
+                android:foregroundGravity="right|center_horizontal"
+                android:text="[사진]"
+                android:textColor="@android:color/holo_green_dark"
+                android:textSize="14sp"
+                app:layout_constraintBottom_toBottomOf="@+id/txtCompany_34"
+                app:layout_constraintStart_toEndOf="@id/txtCompany_34" />
+
+
+            <com.lgsdiamond.hbmembers.ClickableNameTextView
+                android:id="@+id/txtCompany_34_all"
+                style="@style/member_answer_all"
+                android:layout_marginLeft="8dp"
+                android:background="#80ffffff"
+                android:text="Company_34_all"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/txtCompany_34" />
+
+            <TextView
+                android:id="@+id/labSchool"
+                style="@style/member_label"
+                android:gravity="left"
+                android:text="출신고"
+                app:layout_constraintBottom_toBottomOf="@+id/txtSchool"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/txtSchool"
+                app:layout_constraintVertical_bias="0.0" />
+
+            <TextView
+                android:id="@+id/txtSchool"
+                style="@style/member_answer_single"
+                android:layout_marginLeft="8dp"
+                android:layout_marginTop="8dp"
+                android:text="School"
+                android:textColor="@color/colorPrimary"
+                app:layout_constraintStart_toEndOf="@+id/labSchool"
+                app:layout_constraintTop_toBottomOf="@+id/txtCompany_34_all" />
+
+            <com.lgsdiamond.hbmembers.ClickableNameTextView
+                android:id="@+id/txtSchool_all"
+                style="@style/member_answer_all"
+                android:layout_marginLeft="8dp"
+                android:background="#80ffffff"
+                android:text="School_all"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/txtSchool" />
+
+            <TextView
+                android:id="@+id/labMajor"
+                style="@style/member_label"
+                android:text="전공"
+                app:layout_constraintBottom_toBottomOf="@+id/txtMajor"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/txtMajor"
+                app:layout_constraintVertical_bias="0.0" />
+
+            <TextView
+                android:id="@+id/txtMajor"
+                style="@style/member_answer_single"
+                android:layout_marginLeft="8dp"
+                android:layout_marginTop="8dp"
+                android:text="Major"
+                android:textColor="@color/colorPrimary"
+                app:layout_constraintStart_toEndOf="@+id/labMajor"
+                app:layout_constraintTop_toBottomOf="@+id/txtSchool_all" />
+
+            <com.lgsdiamond.hbmembers.ClickableNameTextView
+                android:id="@+id/txtMajor_all"
+                style="@style/member_answer_all"
+                android:layout_marginLeft="8dp"
+                android:background="#80ffffff"
+                android:text="Major_all"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/txtMajor" />
+
+            <TextView
+                android:id="@+id/labBranch"
+                style="@style/member_label"
+                android:text="병과 및 직능"
+                app:layout_constraintBottom_toBottomOf="@+id/txtMajor"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/txtBranch"
+                app:layout_constraintVertical_bias="0.0" />
+
+            <TextView
+                android:id="@+id/txtBranch"
+                style="@style/member_answer_single"
+                android:layout_marginLeft="8dp"
+                android:layout_marginTop="8dp"
+                android:text="Branch"
+                android:textColor="@color/colorPrimary"
+                app:layout_constraintStart_toEndOf="@+id/labBranch"
+                app:layout_constraintTop_toBottomOf="@+id/txtMajor_all" />
+
+            <com.lgsdiamond.hbmembers.ClickableNameTextView
+                android:id="@+id/txtBranch_all"
+                style="@style/member_answer_all"
+                android:layout_marginLeft="8dp"
+                android:background="#80ffffff"
+                android:text="Branch_all"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/txtBranch" />
+
+            <TextView
+                android:id="@+id/labReference"
+                style="@style/member_label"
+                android:layout_marginTop="8dp"
+                android:text="비고:"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/txtBranch_all" />
+
+            <TextView
+                android:id="@+id/txtReference"
+                style="@style/member_answer_all"
+                android:layout_marginLeft="8dp"
+                android:background="#80ffffff"
+                android:text="Reference"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toEndOf="@id/labReference"
+                app:layout_constraintTop_toTopOf="@id/labReference" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
+
+    <TextView
+        android:id="@+id/labMemberMemo"
+        style="@style/member_label"
+        android:layout_marginLeft="8dp"
+        android:text="메모:"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/txtMemberMemo" />
+
+    <TextView
+        android:id="@+id/txtMemberMemo"
+        style="@style/member_answer_single"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="4dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginBottom="2dp"
+        android:background="@android:color/background_dark"
+        android:gravity="top|start"
+        android:hint="새로운 메모 작성"
+        android:singleLine="false"
+        android:textColor="@android:color/holo_green_light"
+        android:textSize="@dimen/_16sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/labMemberMemo" />
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/loSingle"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginLeft="3dp"
+    android:layout_marginTop="2dp"
+    android:layout_marginRight="3dp"
+    android:layout_marginBottom="2dp"
+    android:background="#C0ffffff"
+    android:orientation="horizontal">
+
+    <LinearLayout
+        android:id="@+id/loSingleHolder"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/single_id"
+            style="@style/list_item"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="0dp"
+            android:layout_marginRight="5dp"
+            android:layout_marginBottom="0dp"
+            android:text="single" />
+
+        <TextView
+            android:id="@+id/member_count"
+            style="@style/list_item"
+            android:layout_gravity="top|center_horizontal"
+            android:layout_margin="0dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="0dp"
+            android:layout_marginRight="5dp"
+            android:layout_marginBottom="0dp"
+            android:foregroundGravity="right|center_horizontal"
+            android:text="0명"
+            android:textColor="@color/company_b_item"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/member_pic"
+            style="@style/list_item"
+            android:layout_gravity="top|center_horizontal"
+            android:layout_margin="0dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="0dp"
+            android:layout_marginRight="5dp"
+            android:layout_marginBottom="0dp"
+            android:foregroundGravity="right|center_horizontal"
+            android:text="[사진]"
+            android:textColor="@android:color/background_dark"
+            android:textSize="14sp" />
+
+    </LinearLayout>
+
+    <com.lgsdiamond.hbmembers.ClickableNameTextView
+        android:id="@+id/single_content"
+        style="@style/list_content"
+        android:text="content" />
+</LinearLayout>

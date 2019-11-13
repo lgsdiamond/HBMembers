@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_member"
+            android:icon="@drawable/ic_member"
+            android:title="@string/menu_member" />
+        <item
+            android:id="@+id/nav_company_12"
+            android:icon="@drawable/ic_company_12"
+            android:title="@string/menu_company_12" />
+        <item
+            android:id="@+id/nav_company_34"
+            android:icon="@drawable/ic_company_34"
+            android:title="@string/menu_company_34" />
+        <item
+            android:id="@+id/nav_school"
+            android:icon="@drawable/ic_school"
+            android:title="@string/menu_school" />
+        <item
+            android:id="@+id/nav_major"
+            android:icon="@drawable/ic_major"
+            android:title="@string/menu_major" />
+        <item
+            android:id="@+id/nav_branch"
+            android:icon="@drawable/ic_branch"
+            android:title="@string/menu_branch" />
+    </group>
+
+    <item android:title="@string/menu_board_name">
+        <menu>
+            <item
+                android:id="@+id/nav_board"
+                android:icon="@drawable/ic_board"
+                android:title="@string/menu_board" />
+            <item
+                android:id="@+id/nav_report"
+                android:icon="@drawable/ic_report"
+                android:title="@string/menu_report" />
+            <item
+                android:id="@+id/nav_message"
+                android:icon="@drawable/ic_message"
+                android:title="@string/menu_message" />
+        </menu>
+    </item>
+</menu>

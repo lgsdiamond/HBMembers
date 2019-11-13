@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/loMemberPic"
+    style="@style/full_screen_dialog"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <Button
+        android:id="@+id/btnCloseMemberPhoto"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="닫기"
+        android:textSize="@dimen/_18sp" />
+
+    <com.github.chrisbanes.photoview.PhotoView
+        android:id="@+id/pvMemberPhoto"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="4dp"
+        android:background="@android:color/transparent"
+        android:scaleType="fitCenter" />
+</LinearLayout>

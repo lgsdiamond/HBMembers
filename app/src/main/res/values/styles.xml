@@ -1,0 +1,135 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorCaret</item>
+    </style>
+
+    <style name="AppTheme.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+    <!-- Styles define by lgsdiamond -->
+
+    <style name="list_item" parent="@android:style/Widget.TextView">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_margin">@dimen/list_margin</item>
+        <item name="android:layout_marginLeft">16dp</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:layout_marginRight">8dp</item>
+        <item name="android:background">@android:color/transparent</item>
+        <item name="android:fontFamily">serif</item>
+        <item name="android:textAppearance">?attr/textAppearanceListItem</item>
+        <item name="android:textColor">@color/txtLabel</item>
+    </style>
+
+    <style name="list_content" parent="@android:style/Widget.TextView">
+        <item name="android:textIsSelectable">true</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_margin">@dimen/list_margin</item>
+        <item name="android:layout_marginTop">5dp</item>
+        <item name="android:layout_marginBottom">5dp</item>
+        <item name="android:layout_marginLeft">0dp</item>
+        <item name="android:layout_marginRight">0dp</item>
+        <item name="android:background">@android:color/transparent</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:singleLine">false</item>
+        <item name="android:textAppearance">?attr/textAppearanceListItem</item>
+        <item name="android:textColorLink">@android:color/background_dark</item>
+        <item name="android:textSize">18sp</item>
+    </style>
+
+    <style name="member_label" parent="@android:style/Widget.TextView">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:fontFamily">serif</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:visibility">visible</item>
+        <item name="android:background">@android:color/background_light</item>
+    </style>
+
+    <style name="member_answer_single" parent="@android:style/Widget.TextView">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:fontFamily">serif</item>
+        <item name="android:gravity">top|start</item>
+        <item name="android:textIsSelectable">true</item>
+        <item name="android:textAppearance">@style/TextAppearance.AppCompat</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:textColor">@color/colorPrimary</item>
+        <item name="android:textSize">18sp</item>
+    </style>
+
+    <style name="member_answer_all" parent="@android:style/Widget.TextView">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:maxLines">10</item>
+        <item name="android:minLines">1</item>
+        <item name="android:textIsSelectable">true</item>
+        <item name="android:singleLine">false</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:textColor">@android:color/background_dark</item>
+        <item name="android:textSize">16sp</item>
+    </style>
+
+    <style name="edit_box" parent="@android:style/Widget.EditText">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:background">@drawable/border_line_solid</item>
+        <item name="android:ems">10</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:inputType">textPersonName</item>
+        <item name="android:textAppearance">@style/TextAppearance.AppCompat.Body1</item>
+        <item name="android:textColor">@color/colorPrimaryDark</item>
+        <item name="android:textCursorDrawable">@drawable/edit_box_cursor</item>
+        <item name="android:paddingLeft">@dimen/edit_margin</item>
+        <item name="android:gravity">center</item>
+        <item name="android:paddingRight">@dimen/edit_margin</item>
+    </style>
+
+    <style name="dialog_input_box" parent="@android:style/Widget.EditText">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:background">@drawable/border_line_solid</item>
+        <item name="android:ems">10</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:inputType">textMultiLine</item>
+        <item name="android:textAppearance">@style/TextAppearance.AppCompat.Body1</item>
+        <item name="android:textColor">@color/colorPrimaryDark</item>
+        <item name="android:textCursorDrawable">@drawable/edit_box_cursor</item>
+        <item name="android:paddingLeft">@dimen/edit_margin</item>
+        <item name="android:paddingRight">@dimen/edit_margin</item>
+        <item name="android:textSize">20sp</item>
+        <item name="android:layout_marginLeft">200dp</item>
+        <item name="android:layout_marginRight">200dp</item>
+    </style>
+
+    <style name="trans_button" parent="@android:style/Widget.ImageButton">
+        <item name="android:layout_width">40dp</item>
+        <item name="android:layout_height">40dp</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:background">@drawable/button_selector_transparent</item>
+    </style>
+
+    <!-- Dialog Style -->
+
+    <style name="full_screen_dialog" parent="@android:style/Theme.Dialog">
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowFullscreen">true</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowAnimationStyle">@android:style/Animation.Dialog</item>
+        <item name="android:windowSoftInputMode">stateUnspecified|adjustPan</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+    </style>
+</resources>

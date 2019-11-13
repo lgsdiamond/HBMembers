@@ -1,0 +1,146 @@
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/message"
+    tools:context="com.lgsdiamond.hbmembers.ui.message.MessageFragment">
+
+    <TextView
+        android:id="@+id/labContent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="8dp"
+        android:layout_marginBottom="8dp"
+        android:fontFamily="serif"
+        android:text="메시지 내용"
+        android:textColor="@color/txtLabel"
+        app:layout_constraintBottom_toBottomOf="@+id/btnSendMessage"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <EditText
+        android:id="@+id/edtMessage"
+        style="@style/edit_box"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
+        android:gravity="top"
+        android:inputType="text|textMultiLine"
+        android:labelFor="@id/edtMessage"
+        android:singleLine="false"
+        android:textAlignment="textStart"
+        android:textSize="@dimen/_20sp"
+        app:layout_constraintBottom_toTopOf="@id/txtSendMessage"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/labContent"
+        app:layout_constraintTop_toBottomOf="@id/btnSendMessage" />
+
+    <Button
+        android:id="@+id/btnSendMessage"
+        android:layout_width="0dp"
+        android:layout_height="32dp"
+        android:layout_marginLeft="32dp"
+        android:layout_marginEnd="16dp"
+        android:background="@drawable/button_selector_transparent"
+        android:drawableLeft="@drawable/ic_send_sms"
+        android:drawablePadding="10dp"
+        android:text="메시지 보내기"
+        android:textAlignment="textStart"
+        android:textSize="@dimen/_18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/labContent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/txtSendMessage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:fontFamily="serif"
+        android:text="아래 동기회 임원에게 메시지를 전송합니다."
+        android:textAlignment="textStart"
+        android:textColor="@color/txtLabel"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toTopOf="@id/rgToWhom"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <RadioGroup xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/rgToWhom"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <RadioButton
+            android:id="@+id/rbSecretary"
+            android:layout_width="wrap_content"
+            android:layout_height="37dp"
+            android:layout_marginLeft="8dp"
+            android:fontFamily="serif"
+            android:text="사무총장"
+            android:textSize="18sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/txtSendMessage" />
+
+        <TextView
+            android:id="@+id/txtSecretary"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="40dp"
+            android:text=": 동기회 활동 전반에 걸친 의견, 건의사항, 제안 등"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/rbSecretary" />
+
+        <RadioButton
+            android:id="@+id/rbContact"
+            android:layout_width="wrap_content"
+            android:layout_height="35dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="2dp"
+            android:fontFamily="serif"
+            android:text="연락국장"
+            android:textSize="18sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/txtSecretary" />
+
+        <TextView
+            android:id="@+id/txtContact"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="40dp"
+            android:text=": 경조사, 개인 신상변동 사항 등"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/rbContact" />
+
+        <RadioButton
+            android:id="@+id/rbEditor"
+            android:layout_width="wrap_content"
+            android:layout_height="41dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="2dp"
+            android:fontFamily="serif"
+            android:text="편집국장"
+            android:textSize="18sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/txtContact" />
+
+        <TextView
+            android:id="@+id/txtEditor"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="40dp"
+            android:text=': 동기회 역사 자료, 한백밴드, "한백인" 앱 개선 등'
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/rbEditor" />
+    </RadioGroup>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
