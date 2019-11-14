@@ -5,9 +5,9 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 
 class MemberViewModel : ViewModel() {
-
-    private val _text = MutableLiveData<String>().apply {
-        value = "This is member Fragment"
-    }
-    val text: LiveData<String> = _text
+	
+	private val _text = MutableLiveData<String>().apply {
+		value = "This is member Fragment"
+	}
+	val text: LiveData<String> = _text
 }

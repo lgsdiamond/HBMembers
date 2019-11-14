@@ -33,10 +33,10 @@
     <TextView
         android:id="@+id/labNewContent"
         style="@style/member_label"
-        android:layout_marginBottom="4dp"
         android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
         android:layout_marginTop="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginBottom="4dp"
         android:text="새로운 내용" />
 
     <EditText
@@ -45,9 +45,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="top"
-        android:layout_marginBottom="20dp"
         android:layout_marginLeft="16dp"
         android:layout_marginRight="8dp"
+        android:layout_marginBottom="20dp"
         android:gravity="top|left"
         android:hint="새로운 내용을 입력하세요"
         android:inputType="text|textMultiLine"
@@ -59,18 +59,18 @@
     <TextView
         android:id="@+id/labOldContent"
         style="@style/member_label"
-        android:layout_marginBottom="10dp"
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
+        android:layout_marginBottom="10dp"
         android:text="현재 내용" />
 
     <TextView
         android:id="@+id/txtOldContent"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="20dp"
         android:layout_marginLeft="16dp"
         android:layout_marginRight="8dp"
+        android:layout_marginBottom="20dp"
         android:gravity="top|left"
         android:hint="현재 저장된 내용은 없습니다."
         android:singleLine="false"

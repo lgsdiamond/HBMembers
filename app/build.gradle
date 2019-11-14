@@ -12,12 +12,6 @@ android {
             storeFile file('E:/Development/_KeyStore/lgsdiamond_key/lgsdiamond_key.jks')
             storePassword 'Cjdgo0787!'
         }
-        debug {
-            keyAlias 'lgsdiamond_key'
-            keyPassword 'Cjdgo0787!'
-            storeFile file('E:/Development/_KeyStore/lgsdiamond_key/lgsdiamond_key.jks')
-            storePassword 'Cjdgo0787!'
-        }
     }
 
     compileSdkVersion 29
@@ -38,7 +32,6 @@ android {
         }
         debug {
             minifyEnabled false
-            signingConfig signingConfigs.debug
         }
     }
 
@@ -78,7 +71,7 @@ dependencies {
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
 
-    // added
+    // added external library
     implementation 'com.readystatesoftware.sqliteasset:sqliteassethelper:2.0.1'
     implementation 'com.github.chrisbanes:PhotoView:2.3.0'
     implementation 'com.github.barteksc:android-pdf-viewer:3.2.0-beta.1'
@@ -92,7 +85,6 @@ dependencies {
     implementation group: 'com.kakao.sdk', name: 'push', version: project.KAKAO_SDK_VERSION
 
     // for firebase
-    // add the firebase SDK for Google FireBass
     implementation 'com.google.firebase:firebase-analytics:17.2.1'
     implementation 'com.google.firebase:firebase-database:19.2.0'
 }

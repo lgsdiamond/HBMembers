@@ -16,72 +16,72 @@ import com.lgsdiamond.hbmembers.MainActivity.Companion.ADMIN_REAL_NAME
 import kotlinx.android.synthetic.main.fragment_login.*
 
 class LoginFragment : Fragment() {
-
-    private lateinit var loginViewModel: LoginViewModel
-
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        loginViewModel =
-            ViewModelProviders.of(this).get(LoginViewModel::class.java)
-        return inflater.inflate(R.layout.fragment_login, container, false)
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
-        initFragmentUI()
-    }
-
-    private fun initFragmentUI() {
-
-        gMainActivity.hideActionButtons()
-
-        loginPhoto.scaleType = ImageView.ScaleType.FIT_XY
-
-        edtUserNumber.setText(MainActivity.getRegisteredNumber())
-        edtUserName.setText(MainActivity.getRegisteredName())
-
-        btnRegister.setOnClickListener {
-            val number = edtUserNumber.text.toString().removeWhitespaces()
-            var nameInput = edtUserName.text.toString().removeWhitespaces()
-
-            if (number.contentEquals(ADMIN_NUMBER) && nameInput.contentEquals(ADMIN_NAME)) {
-                nameInput = ADMIN_REAL_NAME
-            }
-
-            if (number.length == 4 && nameInput.length > 1) {     // not too short
-                val nameOutput = gMainActivity.memberDBAccess.getNameFromNumber(number)
-                if (!nameInput.contains("(고)") && isMatchingName(nameInput, nameOutput)) {
-                    gMainActivity.setRegisteredUser(number, nameOutput)
-
-                    edtUserNumber.setText(number)
-                    edtUserName.setText(nameOutput)
-                    MainActivity.setRegistered(true)
-
-                    LgsUtility.showToastShort("\"$nameOutput\"(으)로 로그인되었습니다.")
-
-                    soundOpening.startOnOff()
-                    MainActivity.notifyPendingName(nameOutput)
-                    findNavController().navigate(R.id.nav_member)
-
-
-                } else {
-                    gMainActivity.setRegisteredUser(number, "")
-                    MainActivity.setRegistered(false)
-
-                    LgsUtility.showToastShort("유효한 회원 정보가 아닙니다.")
-                    soundSliding.startOnOff()
-                }
-            } else {
-                LgsUtility.showToastShort("입력내용이 적합하지 않습니다.")
-                soundSliding.startOnOff()
-            }
-            LgsUtility.showSoftKeyboard(false)
-        }
-
-        edtUserName.hint = "이름"
-    }
+	
+	private lateinit var loginViewModel: LoginViewModel
+	
+	override fun onCreateView(
+		inflater: LayoutInflater,
+		container: ViewGroup?,
+		savedInstanceState: Bundle?
+	): View? {
+		loginViewModel =
+			ViewModelProviders.of(this).get(LoginViewModel::class.java)
+		return inflater.inflate(R.layout.fragment_login, container, false)
+	}
+	
+	override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+		super.onViewCreated(view, savedInstanceState)
+		
+		initFragmentUI()
+	}
+	
+	private fun initFragmentUI() {
+		
+		gMainActivity.hideActionButtons()
+		
+		loginPhoto.scaleType = ImageView.ScaleType.FIT_XY
+		
+		edtUserNumber.setText(MainActivity.getRegisteredNumber())
+		edtUserName.setText(MainActivity.getRegisteredName())
+		
+		btnRegister.setOnClickListener {
+			val number = edtUserNumber.text.toString().removeWhitespaces()
+			var nameInput = edtUserName.text.toString().removeWhitespaces()
+			
+			if (number.contentEquals(ADMIN_NUMBER) && nameInput.contentEquals(ADMIN_NAME)) {
+				nameInput = ADMIN_REAL_NAME
+			}
+			
+			if (number.length == 4 && nameInput.length > 1) {     // not too short
+				val nameOutput = gMainActivity.memberDBAccess.getNameFromNumber(number)
+				if (!nameInput.contains("(고)") && isMatchingName(nameInput, nameOutput)) {
+					gMainActivity.setRegisteredUser(number, nameOutput)
+					
+					edtUserNumber.setText(number)
+					edtUserName.setText(nameOutput)
+					MainActivity.setRegistered(true)
+					
+					LgsUtility.showToastShort("\"$nameOutput\"(으)로 로그인되었습니다.")
+					
+					soundOpening.startOnOff()
+					MainActivity.notifyPendingName(nameOutput)
+					findNavController().navigate(R.id.nav_member)
+					
+					
+				} else {
+					gMainActivity.setRegisteredUser(number, "")
+					MainActivity.setRegistered(false)
+					
+					LgsUtility.showToastShort("유효한 회원 정보가 아닙니다.")
+					soundSliding.startOnOff()
+				}
+			} else {
+				LgsUtility.showToastShort("입력내용이 적합하지 않습니다.")
+				soundSliding.startOnOff()
+			}
+			LgsUtility.showSoftKeyboard(false)
+		}
+		
+		edtUserName.hint = "이름"
+	}
 }

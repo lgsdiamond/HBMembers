@@ -31,7 +31,6 @@
     <string name="title_report">한백회보 및 동기회 소식</string>
     <string name="title_message">동기회에 SMS 보내기</string>
 
-
     <string name="desc_call">현재 회원에게 전화를 겁니다.</string>
     <string name="desc_contact_number">현재 회원의 연락처를 변경합니다.</string>
     <string name="desc_SMS">현재 회원에게 SMS를 보냅니다.</string>
@@ -57,4 +56,17 @@
     <string name="menu_sound">사운드 끔</string>
     <string name="menu_message">동기회에 SMS 보내기</string>
     <string name="menu_update">앱 업데이트 확인</string>
+
+    <!-- permission rationale -->
+    <string name="permission_call_rationale">회원에게 직접 전화를 걸기 위하여 CALL_PHONE 승인이 필요합니다.</string>
+    <string name="permission_available_call">CALL_PHONE 권한이 승인되었습니다.</string>
+    <string name="permission_denied_call">CALL_PHONE 권한이 거부되었습니다.</string>
+
+    <string name="permission_sms_rationale">회원에게 직접 SMS 문자를 전송하기 위하여 SEND_SMS 승인이 필요합니다.</string>
+    <string name="permission_available_sms">SEND_SMS 권한이 승인되었습니다.</string>
+    <string name="permission_denied_sms">SEND_SMS 권한이 거부되었습니다.</string>
+
+    <!-- for buttons -->
+    <string name="ok_confirm">확인</string>
+
 </resources>
