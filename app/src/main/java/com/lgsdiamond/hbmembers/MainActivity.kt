@@ -8,7 +8,6 @@ import android.content.SharedPreferences
 import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Bundle
-import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
@@ -25,7 +24,6 @@ import com.google.android.material.snackbar.Snackbar
 import com.lgsdiamond.hbmembers.LgsUtility.Companion.getResString
 import com.lgsdiamond.hbmembers.ui.member.MemberFragment
 import kotlinx.android.synthetic.main.content_main.*
-import kotlinx.android.synthetic.main.snack_bar_ok.*
 
 
 class MainActivity : AppCompatActivity() {
@@ -44,9 +42,6 @@ class MainActivity : AppCompatActivity() {
 		private const val REQUEST_INITIAL = 2
 		private val REQUIRED_PERMISSIONS =
 			arrayOf(Manifest.permission.CALL_PHONE, Manifest.permission.SEND_SMS)
-		
-		var sCallPermited = false
-		var sSmsPermited = false
 		
 		internal const val NAVERBAND_PACKAGE_ID = "com.nhn.android.band"
 		internal const val NAVERBAND_PACKAGE_NAME = "네이버밴드(Band)"
@@ -192,17 +187,7 @@ class MainActivity : AppCompatActivity() {
 		}
 		menu.findItem(R.id.action_sound)
 			.setIcon(if (gIsSoundOn) R.drawable.ic_sound_on else R.drawable.ic_sound_off)
-/*
-        menu.setIconInMenu(R.id.action_login, R.drawable.ic_login)
-        menu.setIconInMenu(R.id.action_sound, icSound)
-        menu.setIconInMenu(R.id.action_update, R.drawable.ic_update)
-        menu.setIconInMenu(R.id.action_naverband, R.drawable.ic_message)
-        menu.setIconInMenu(R.id.action_kakaotalk, R.drawable.ic_message)
-        menu.setIconInMenu(R.id.action_finish, R.drawable.ic_finish)
-
-        menu.customFaceMenu(titleFace)
-        optionsMenu = menu
-*/
+		
 		return true
 	}
 	
@@ -215,13 +200,11 @@ class MainActivity : AppCompatActivity() {
 		// Handle action bar item clicks here. The action bar will
 		// automatically handle clicks on the Home/Up button, so long
 		// as you specify a parent activity in AndroidManifest.xml.
-		val id = item.itemId
 		
-		when {
-			(id == R.id.action_login)     -> {
-				return item.onNavDestinationSelected(findNavController(R.id.nav_host_fragment))
-			}
-			(id == R.id.action_sound)     -> {
+		when (item.itemId) {
+			R.id.action_login     -> return item.onNavDestinationSelected(findNavController(
+				R.id.nav_host_fragment))
+			R.id.action_sound     -> {
 				gIsSoundOn = !gIsSoundOn
 				val pref = defPreferences
 				pref.edit()
@@ -230,20 +213,13 @@ class MainActivity : AppCompatActivity() {
 				
 				item.setIcon(if (gIsSoundOn) R.drawable.ic_sound_on else R.drawable.ic_sound_off)
 			}
-			(id == R.id.action_update)    -> {
-				updateApp()
-			}
-			(id == R.id.action_naverband) -> {
-				LgsUtility.openAndroidApp(NAVERBAND_PACKAGE_ID, NAVERBAND_PACKAGE_NAME)
-			}
-			(id == R.id.action_kakaotalk) -> {
-				LgsUtility.openAndroidApp(KAKAOTALK_PACKAGE_ID, KAKAOTALK_PACKAGE_NAME)
-			}
-			(id == R.id.action_finish)    -> {
-				finishApp(false)
-			}
-			else                          -> {
-			}
+			R.id.action_update    -> updateApp()
+			R.id.action_naverband -> LgsUtility.openAndroidApp(NAVERBAND_PACKAGE_ID,
+				NAVERBAND_PACKAGE_NAME)
+			R.id.action_kakaotalk -> LgsUtility.openAndroidApp(KAKAOTALK_PACKAGE_ID,
+				KAKAOTALK_PACKAGE_NAME)
+			
+			R.id.action_finish    -> finishApp(false)
 		}
 		return super.onOptionsItemSelected(item)
 	}
