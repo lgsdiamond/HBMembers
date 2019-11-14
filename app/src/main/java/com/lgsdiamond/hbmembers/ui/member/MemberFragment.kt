@@ -70,6 +70,7 @@ class MemberFragment : Fragment() {
 		initFragmentUI(view)
 	}
 	
+	
 	// ui
 	private fun initFragmentUI(view: View) {
 		
