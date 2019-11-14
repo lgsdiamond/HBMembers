@@ -7,11 +7,11 @@ import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
-import com.lgsdiamond.hbmembers.DBHelper
+import com.lgsdiamond.hbmembers.HbDbHelper
 import com.lgsdiamond.hbmembers.LgsUtility.Companion.contentFace
 import com.lgsdiamond.hbmembers.LgsUtility.Companion.countCommaItems
 import com.lgsdiamond.hbmembers.R
-import com.lgsdiamond.hbmembers.gMainActivity
+import com.lgsdiamond.hbmembers.gActivity
 import kotlinx.android.synthetic.main.fragment_single_item.view.*
 import java.util.*
 
@@ -20,7 +20,7 @@ abstract class SingleFragment : Fragment() {
 	protected var fragmentID: Int = 0
 	
 	private lateinit var singleViewModel: SingleViewModel
-	private val dbAccess = gMainActivity.memberDBAccess
+	private val dbAccess = gActivity.dbAccess
 	private val singleContent = SingleContent()
 	private var singleAdapter: SingleViewAdapter? = null
 	private var sInitiated = false
@@ -44,7 +44,7 @@ abstract class SingleFragment : Fragment() {
 	
 	private fun initFragmentUI(view: View) {
 		//----------------------------------------------
-		if (!gMainActivity.confirmRegistered()) return
+		if (!gActivity.confirmRegistered()) return
 		//----------------------------------------------
 		
 		initiateListInfo()
@@ -73,17 +73,17 @@ abstract class SingleFragment : Fragment() {
 		val itemMembers = ArrayList<String>()
 		
 		val dbIndexName = when (fragmentID) {
-			R.id.nav_company_12 -> DBHelper.dbMemberCompany12
-			R.id.nav_company_34 -> DBHelper.dbMemberCompany34
-			R.id.nav_school     -> DBHelper.dbMemberSchool
-			R.id.nav_major      -> DBHelper.dbMemberMajor
-			R.id.nav_branch     -> DBHelper.dbMemberBranch
+			R.id.nav_company_12 -> HbDbHelper.dbMemberCompany12
+			R.id.nav_company_34 -> HbDbHelper.dbMemberCompany34
+			R.id.nav_school     -> HbDbHelper.dbMemberSchool
+			R.id.nav_major      -> HbDbHelper.dbMemberMajor
+			R.id.nav_branch     -> HbDbHelper.dbMemberBranch
 			else                -> ""
 		}
 		
 		dbAccess.makeDistinctDataList(
 			itemNames, itemMembers,
-			DBHelper.dbTableMember, dbIndexName)
+			HbDbHelper.dbTableMember, dbIndexName)
 		
 		singleContent.makeList(itemNames, itemMembers)
 		
@@ -136,10 +136,10 @@ abstract class SingleFragment : Fragment() {
 					if (fragmentID == R.id.nav_company_34) {
 						holder.mView.member_pic.visibility = View.VISIBLE
 						holder.mView.member_pic.setOnClickListener {
-							gMainActivity.memberFragment.showCompanyPic(company)
+							gActivity.memberFragment.showCompanyPic(company)
 						}
 						holder.mView.loSingleHolder.setOnClickListener {
-							gMainActivity.memberFragment.showCompanyPic(company)
+							gActivity.memberFragment.showCompanyPic(company)
 						}
 					}
 				}
@@ -184,6 +184,6 @@ abstract class SingleFragment : Fragment() {
 			R.id.nav_branch     -> R.color.back_branch
 			else                -> 0
 		}
-		if (resID != 0) view.setBackgroundColor(ContextCompat.getColor(gMainActivity, resID))
+		if (resID != 0) view.setBackgroundColor(ContextCompat.getColor(gActivity, resID))
 	}
 }

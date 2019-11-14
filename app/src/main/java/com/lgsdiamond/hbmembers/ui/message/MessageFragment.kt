@@ -7,24 +7,24 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
-import com.lgsdiamond.hbmembers.DatabaseAccess
+import com.lgsdiamond.hbmembers.HbDbAccess
 import com.lgsdiamond.hbmembers.LgsUtility.Companion.sendSMS
 import com.lgsdiamond.hbmembers.LgsUtility.Companion.showSoftKeyboard
 import com.lgsdiamond.hbmembers.LgsUtility.Companion.titleFace
 import com.lgsdiamond.hbmembers.R
-import com.lgsdiamond.hbmembers.gMainActivity
+import com.lgsdiamond.hbmembers.gActivity
 import com.lgsdiamond.hbmembers.toToastTitle
 import kotlinx.android.synthetic.main.fragment_message.*
 
 class MessageFragment : Fragment() {
 	
 	private lateinit var messageViewModel: MessageViewModel
-	private lateinit var dbAccess: DatabaseAccess
-	private lateinit var mMemberToWhom: DatabaseAccess.MemberInfo
+	private lateinit var dbAccess: HbDbAccess
+	private lateinit var mMemberToWhom: HbDbAccess.MemberInfo
 	
-	private lateinit var mInfoSecretary: DatabaseAccess.MemberInfo
-	private lateinit var mInfoContact: DatabaseAccess.MemberInfo
-	private lateinit var mInfoEditor: DatabaseAccess.MemberInfo
+	private lateinit var mInfoSecretary: HbDbAccess.MemberInfo
+	private lateinit var mInfoContact: HbDbAccess.MemberInfo
+	private lateinit var mInfoEditor: HbDbAccess.MemberInfo
 	
 	override fun onCreateView(
 		inflater: LayoutInflater,
@@ -44,7 +44,7 @@ class MessageFragment : Fragment() {
 	
 	private fun initFragmentUI(view: View) {
 		
-		dbAccess = gMainActivity.memberDBAccess
+		dbAccess = gActivity.dbAccess
 		
 		rgToWhom.setOnCheckedChangeListener { group, checkedId ->
 			when (checkedId) {
@@ -65,7 +65,7 @@ class MessageFragment : Fragment() {
 		
 		btnSendMessage.typeface = titleFace
 		btnSendMessage.setOnClickListener { _ ->
-			val permitted = gMainActivity.confirmPermission(Manifest.permission.SEND_SMS)
+			val permitted = gActivity.confirmPermission(Manifest.permission.SEND_SMS)
 			showSoftKeyboard(false)
 			var message = edtMessage.text.toString()
 			message = message.trim { it <= ' ' }

@@ -3,10 +3,9 @@ package com.lgsdiamond.hbmembers.ui.member
 import android.Manifest
 import android.app.AlertDialog
 import android.app.Dialog
-import android.content.pm.PackageManager
 import android.graphics.Color
 import android.os.Bundle
-import android.util.Log
+import android.text.InputType
 import android.view.ContextThemeWrapper
 import android.view.LayoutInflater
 import android.view.View
@@ -14,8 +13,6 @@ import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
 import android.widget.EditText
 import android.widget.TextView
-import androidx.core.app.ActivityCompat
-import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import com.kakao.kakaolink.v2.KakaoLinkResponse
@@ -43,7 +40,7 @@ class MemberFragment : Fragment() {
 	private var lastFoundName: String = ""
 	
 	init {
-		gMainActivity.memberFragment = this
+		gActivity.memberFragment = this
 	}
 	
 	override fun onCreateView(
@@ -59,7 +56,7 @@ class MemberFragment : Fragment() {
 	override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 		super.onViewCreated(view, savedInstanceState)
 		
-		val helpCount = gMainActivity.readHelpCount()
+		val helpCount = gActivity.readHelpCount()
 		if (helpCount < 20) {
 			when (gRandom.nextInt(4)) {
 				0    -> LgsUtility.showToastShort("회원 이름을 누르면 해당 회원의 정보를 볼 수 있습니다.")
@@ -67,7 +64,7 @@ class MemberFragment : Fragment() {
 				2    -> LgsUtility.showToastShort("사진 버튼을 클릭하여 회원의 사진을 볼 수 있습니다.")
 				else -> LgsUtility.showToastShort("연락처와 메모를 수정하여 저장할 수 있습니다.")
 			}
-			gMainActivity.writeHelpCount(helpCount + 1)
+			gActivity.writeHelpCount(helpCount + 1)
 		}
 		
 		initFragmentUI(view)
@@ -77,10 +74,10 @@ class MemberFragment : Fragment() {
 	private fun initFragmentUI(view: View) {
 		
 		//----------------------------------------------
-		if (!gMainActivity.confirmRegistered()) return
+		if (!gActivity.confirmRegistered()) return
 		//----------------------------------------------
 		
-		gMainActivity.showNavActionButtons()
+		gActivity.showNavActionButtons()
 		
 		loMemberMain.setOnClickListener { LgsUtility.showSoftKeyboard(false) }
 		
@@ -102,7 +99,6 @@ class MemberFragment : Fragment() {
 			soundTick.startOnOff()
 			changeContactNumber()
 		}
-		txtContact.setOnClickListener { changeContactNumber() }
 		
 		txtMemberMemo.typeface = titleFace
 		btnMemberMemo.setOnClickListener {
@@ -116,25 +112,31 @@ class MemberFragment : Fragment() {
 			
 			LgsUtility.showSoftKeyboard(false)
 			val strName = edtFindName.text.toString().removeWhitespaces()
+			var strContact = edtContact.text.toString().removeWhitespaces()
 			
-			val info: DatabaseAccess.MemberInfo?
-			if (strName.isNotEmpty()) {     // not too short
-				info = updateMemberInfo(strName, v)
-				lastFoundName = info?.mName ?: ""
+			strContact = strContact.onlyDigits()
+			
+			if (strName.isEmpty() && (strContact.length < 4)) {
+				"검색할 전화번호는 최소 4자리 이상이어야 합니다.".toSnackBarOK(edtContact)
 			} else {
-				populateMemberInfo(null)
+				if (strContact.length < 4) strContact = ""        // not eligible
+				val info = updateMemberInfo(v, strName, strContact)
+				lastFoundName = info?.mName ?: ""
+				if (info == null) {
+					"검색 조건에 맞는 회원이 없습니다.".toSnackBarOK(edtContact)
+				}
 			}
 		}
 		
 		btnCall.setOnClickListener {
-			val permitted = gMainActivity.confirmPermission(Manifest.permission.CALL_PHONE)
-			val number = LgsUtility.getPhoneNumber(txtContact.text.toString())
+			val permitted = gActivity.confirmPermission(Manifest.permission.CALL_PHONE)
+			val number = LgsUtility.getPhoneNumber(edtContact.text.toString())
 			if (number.contains("+")) {
 				val builder = AlertDialog.Builder(activity)
 					.setTitle("국제전화 확인".toTitleFace())
 					.setMessage("$number 은(는) 국제전화입니다. 전화할까요?".toTitleFace())
 					.setPositiveButton("예".toTitleFace()) { _, _ ->
-						LgsUtility.phoneCall(txtContact.text.toString(), permitted)
+						LgsUtility.phoneCall(edtContact.text.toString(), permitted)
 					}
 					.setNegativeButton("아니요".toTitleFace(), null)
 				
@@ -142,13 +144,13 @@ class MemberFragment : Fragment() {
 				dialog.setIcon(R.drawable.ic_phone_call)
 				dialog.show()
 			} else {
-				LgsUtility.phoneCall(txtContact.text.toString(), permitted)
+				LgsUtility.phoneCall(edtContact.text.toString(), permitted)
 			}
 		}
 		
 		btnSMS.setOnClickListener {
-			val permitted = gMainActivity.confirmPermission(Manifest.permission.SEND_SMS)
-			val number = LgsUtility.getPhoneNumber(txtContact.text.toString())
+			val permitted = gActivity.confirmPermission(Manifest.permission.SEND_SMS)
+			val number = LgsUtility.getPhoneNumber(edtContact.text.toString())
 			
 			val name = edtFindName.text.toString()
 			val edtMessage =
@@ -202,6 +204,7 @@ class MemberFragment : Fragment() {
 			}
 		}
 		
+		// search button on keyboard
 		edtFindName.setOnEditorActionListener { _, id, _ ->
 			if (id == EditorInfo.IME_ACTION_SEARCH) {
 				btnSearch.performClick()
@@ -217,8 +220,17 @@ class MemberFragment : Fragment() {
 		txtMajor_all.typeface = contentFace
 		txtBranch_all.typeface = contentFace
 		
-		txtContact.typeface = titleFace
+		edtContact.typeface = titleFace
 		txtReference.typeface = titleFace
+		
+		// search button on keyboard
+		edtContact.setOnEditorActionListener { _, id, _ ->
+			if (id == EditorInfo.IME_ACTION_SEARCH) {
+				btnSearch.performClick()
+				true
+			} else
+				false
+		}
 		
 		edtFindName.hint = "회원 이름"
 		
@@ -258,7 +270,7 @@ class MemberFragment : Fragment() {
 		soundTick.startOnOff()
 		
 		val innerView = layoutInflater.inflate(R.layout.member_pic_dialog, null)
-		val dialog = Dialog(gMainActivity)
+		val dialog = Dialog(gActivity)
 		
 		dialog.setContentView(innerView)
 		dialog.setTitle("<$company> 사진".toTitleFace())
@@ -288,7 +300,7 @@ class MemberFragment : Fragment() {
 		
 		val name = edtFindName.text.toString().trim()
 		val innerView = layoutInflater.inflate(R.layout.member_pic_dialog, null)
-		val dialog = Dialog(gMainActivity)
+		val dialog = Dialog(gActivity)
 		
 		dialog.setContentView(innerView)
 		dialog.setTitle("<$name>회원 사진".toTitleFace())
@@ -322,7 +334,7 @@ class MemberFragment : Fragment() {
 		btnSaveTitle: String
 	): Dialog {
 		val innerView = layoutInflater.inflate(R.layout.custom_memo_dialog, null)
-		val dialog = Dialog(gMainActivity)
+		val dialog = Dialog(gActivity)
 		dialog.setContentView(innerView)
 		dialog.setTitle(title.toTitleFace())
 		dialog.setCancelable(true)
@@ -370,17 +382,17 @@ class MemberFragment : Fragment() {
 		dialog.btnSaveNewContent.setOnClickListener {
 			val newMemo = dialog.edtNewContent.text.toString().trim()
 			if (newMemo != oldMemo) {
-				val pref = gMainActivity.defPreferences
+				val pref = gActivity.defPreferences
 				if (newMemo.isEmpty()) {
 					labMemberMemo.visibility = View.GONE
 					txtMemberMemo.visibility = View.GONE
-					pref.edit().remove(gMainActivity.makeMemberMemoKey(name)).apply()
+					pref.edit().remove(gActivity.makeMemberMemoKey(name)).apply()
 				} else {
 					labMemberMemo.visibility = View.VISIBLE
 					txtMemberMemo.visibility = View.VISIBLE
 					txtMemberMemo.invalidate()
 					pref.edit()
-						.putString(gMainActivity.makeMemberMemoKey(name), newMemo)
+						.putString(gActivity.makeMemberMemoKey(name), newMemo)
 						.apply()
 				}
 				txtMemberMemo.text = newMemo
@@ -393,7 +405,7 @@ class MemberFragment : Fragment() {
 	
 	private fun changeContactNumber() {
 		val name = edtFindName.text.toString().trim()
-		val oldContact = txtContact.text.toString().trim()
+		val oldContact = edtContact.text.toString().trim()
 		
 		val dialog = createChangeDialog(
 			"<$name>회원의 연락처 변경", "현재 연락처", oldContact,
@@ -403,21 +415,21 @@ class MemberFragment : Fragment() {
 		dialog.show()
 		
 		dialog.btnSaveNewContent.setOnClickListener { v ->
-			val dbContact = gMainActivity.memberDBAccess.getMemberContact(name, v)
+			val dbContact = gActivity.dbAccess.getMemberContact(name, v)
 			val newContact = dialog.edtNewContent.text.toString().trim()
-			val pref = gMainActivity.defPreferences
+			val pref = gActivity.defPreferences
 			if (newContact.isEmpty() || (newContact == dbContact)) {      // means use db contact
-				txtContact.text = dbContact
-				txtContact.setTextColor(Color.BLUE)
-				pref.edit().remove(gMainActivity.makeMemberContactKey(name)).apply()
+				edtContact.setText(dbContact)
+				edtContact.setTextColor(Color.BLUE)
+				pref.edit().remove(gActivity.makeMemberContactKey(name)).apply()
 			} else if (newContact != oldContact) {
-				txtContact.setTextColor(Color.BLACK)
-				txtContact.text = newContact
+				edtContact.setTextColor(Color.BLACK)
+				edtContact.setText(newContact)
 				pref.edit()
-					.putString(gMainActivity.makeMemberContactKey(name), newContact)
+					.putString(gActivity.makeMemberContactKey(name), newContact)
 					.apply()
 			}
-			txtContact.invalidate()
+			edtContact.invalidate()
 			dialog.hide()
 		}
 		dialog.btnCancelContent.setOnClickListener {
@@ -426,81 +438,73 @@ class MemberFragment : Fragment() {
 	}
 	
 	// populate data
-	private fun populateMemberInfo(newInfo: DatabaseAccess.MemberInfo?) {
+	private fun populateMemberInfo(newInfo: HbDbAccess.MemberInfo?) {
 		edtFindName.clearFocus()
 		
 		if (newInfo == null) {
+			
+			// hide member info
+			svMemberInfo.visibility = View.GONE
+			
+			// enable to search by name or contact
 			edtFindName.setText("")
+			edtContact.setText("")
+			btnContact.visibility = View.VISIBLE
+			btnSearch.visibility = View.VISIBLE
 			
+			// contact editable
+			edtContact.setReadOnly(false, InputType.TYPE_CLASS_PHONE)
 			
-			btnContact.visibility = View.INVISIBLE
-			txtContact.visibility = View.INVISIBLE
-			
+			// hide other buttons
 			btnCall.visibility = View.INVISIBLE
 			btnSMS.visibility = View.INVISIBLE
-			if (sInstalled_KAKAOTalk) {
-				btnKakaoLink.visibility = View.INVISIBLE
-			}
-			
-			labCompany_12.visibility = View.GONE
-			txtCompany_12.visibility = View.GONE
-			txtCompany_12_all.visibility = View.GONE
-			
-			labCompany_34.visibility = View.GONE
-			txtCompany_34.visibility = View.GONE
-			txtCompany_34_all.visibility = View.GONE
-			
-			labSchool.visibility = View.GONE
-			txtSchool.visibility = View.GONE
-			txtSchool_all.visibility = View.GONE
-			
-			labMajor.visibility = View.GONE
-			txtMajor.visibility = View.GONE
-			txtMajor_all.visibility = View.GONE
-			
-			labBranch.visibility = View.GONE
-			txtBranch.visibility = View.GONE
-			txtBranch_all.visibility = View.GONE
-			
-			btnContact.visibility = View.GONE
-			txtContact.visibility = View.GONE
-			
-			labReference.visibility = View.GONE
-			txtReference.visibility = View.GONE
-			
-			labMemberMemo.visibility = View.GONE
-			txtMemberMemo.visibility = View.GONE
+			btnKakaoLink.visibility = View.INVISIBLE
+			btnMemberMemo.visibility = View.INVISIBLE
+			btnMemberPic.visibility = View.INVISIBLE
 		} else {
+			// show member info
+			svMemberInfo.visibility = View.VISIBLE
+			
+			// show buttons
+			btnCall.visibility = View.VISIBLE
+			btnSMS.visibility = View.VISIBLE
+			btnKakaoLink.visibility = View.VISIBLE
+			btnMemberMemo.visibility = View.VISIBLE
+			btnMemberPic.visibility = View.VISIBLE
+			
 			btnContact.visibility = View.VISIBLE
-			txtContact.visibility = View.VISIBLE
+			edtContact.visibility = View.VISIBLE
 			
-			val pref = gMainActivity.defPreferences
+			// contact readOnly
+			edtContact.setReadOnly(true)
 			
-			var contact = pref.getString(gMainActivity.makeMemberContactKey(newInfo.mName), "")
+			val pref = gActivity.defPreferences
+			
+			var contact = pref.getString(gActivity.makeMemberContactKey(newInfo.mName), "")
 			if (contact!!.isNotEmpty() && (contact == newInfo.mContact)) {
 				contact = ""
 				pref.edit()
-					.putString(gMainActivity.makeMemberContactKey(newInfo.mName), "")
+					.putString(gActivity.makeMemberContactKey(newInfo.mName), "")
 					.apply()
 			}
 			
 			if (contact.isEmpty()) {
-				pref.edit().remove(gMainActivity.makeMemberContactKey(newInfo.mName)).apply()
-				txtContact.text = newInfo.mContact
-				txtContact.setTextColor(Color.BLUE)
+				pref.edit().remove(gActivity.makeMemberContactKey(newInfo.mName)).apply()
+				edtContact.setText(newInfo.mContact)
+				edtContact.setTextColor(Color.BLUE)
 			} else {
-				txtContact.text = contact
-				txtContact.setTextColor(Color.BLACK)
+				edtContact.setText(contact)
+				edtContact.setTextColor(Color.BLACK)
 			}
 			
-			contact = txtContact.text.toString()
+			contact = edtContact.text.toString()
 			
 			if (contact.isEmpty()) {
 				btnContact.visibility = View.GONE
-				txtContact.visibility = View.GONE
+				edtContact.visibility = View.GONE
 			} else {
 				btnContact.visibility = View.VISIBLE
-				txtContact.visibility = View.VISIBLE
+				edtContact.visibility = View.VISIBLE
 			}
 			
 			if (contact.isEmpty() || contact.contains("?")) {
@@ -609,7 +613,7 @@ class MemberFragment : Fragment() {
 				txtReference.text = newInfo.mReference
 			}
 			
-			val memo = pref.getString(gMainActivity.makeMemberMemoKey(newInfo.mName), "")
+			val memo = pref.getString(gActivity.makeMemberMemoKey(newInfo.mName), "")
 			txtMemberMemo.typeface = titleFace
 			if (memo!!.isEmpty()) {
 				labMemberMemo.visibility = View.GONE
@@ -624,10 +628,18 @@ class MemberFragment : Fragment() {
 		LgsUtility.animateCenterScale(loMemberMain)
 	}
 	
-	fun updateMemberInfo(name: String, v: View?): DatabaseAccess.MemberInfo? {
-		val memberInfo = gMainActivity.memberDBAccess.getMemberInfoByName(name, v)
-		populateMemberInfo(memberInfo)
-		return memberInfo
+	fun updateMemberInfo(v: View?,
+						 name: String,
+						 contact: String = ""): HbDbAccess.MemberInfo? {
+		
+		var member: HbDbAccess.MemberInfo? = null
+		if (contact.isNotEmpty())
+			member = gActivity.dbAccess.getMemberInfoByContact(contact, v)
+		if ((member == null) && name.isNotEmpty())
+			member = gActivity.dbAccess.getMemberInfoByName(name, v)
+		
+		populateMemberInfo(member)
+		return member
 	}
 	
 	// kakao
@@ -653,7 +665,7 @@ class MemberFragment : Fragment() {
 								).build()
 							)
 								.setButtonTitle("한백인 앱으로 돌아가기").build()
-							KakaoLinkService.getInstance().sendDefault(gMainActivity,
+							KakaoLinkService.getInstance().sendDefault(gActivity,
 								params, serverCallbackArgs,
 								object : ResponseCallback<KakaoLinkResponse?>() {
 									override fun onFailure(errorResult: ErrorResult) {

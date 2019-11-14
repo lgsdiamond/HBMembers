@@ -10,7 +10,7 @@
         android:id="@+id/labContent"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="8dp"
+        android:layout_marginStart="8dp"
         android:layout_marginBottom="8dp"
         android:fontFamily="serif"
         android:text="메시지 내용"
@@ -23,7 +23,7 @@
         style="@style/edit_box"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginLeft="8dp"
+        android:layout_marginStart="8dp"
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="16dp"
         android:gravity="top"
@@ -41,7 +41,7 @@
         android:id="@+id/btnSendMessage"
         android:layout_width="0dp"
         android:layout_height="32dp"
-        android:layout_marginLeft="32dp"
+        android:layout_marginStart="32dp"
         android:layout_marginEnd="16dp"
         android:background="@drawable/button_selector_transparent"
         android:drawableLeft="@drawable/ic_send_sms"
@@ -58,7 +58,7 @@
         android:id="@+id/txtSendMessage"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="8dp"
+        android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:fontFamily="serif"
@@ -84,7 +84,7 @@
             android:id="@+id/rbSecretary"
             android:layout_width="wrap_content"
             android:layout_height="37dp"
-            android:layout_marginLeft="8dp"
+            android:layout_marginStart="8dp"
             android:fontFamily="serif"
             android:text="사무총장"
             android:textSize="18sp"
@@ -95,7 +95,7 @@
             android:id="@+id/txtSecretary"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="40dp"
+            android:layout_marginStart="40dp"
             android:text=": 동기회 활동 전반에 걸친 의견, 건의사항, 제안 등"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/rbSecretary" />
@@ -104,7 +104,7 @@
             android:id="@+id/rbContact"
             android:layout_width="wrap_content"
             android:layout_height="35dp"
-            android:layout_marginLeft="8dp"
+            android:layout_marginStart="8dp"
             android:layout_marginTop="2dp"
             android:fontFamily="serif"
             android:text="연락국장"
@@ -113,10 +113,10 @@
             app:layout_constraintTop_toBottomOf="@+id/txtSecretary" />
 
         <TextView
-            android:id="@+id/txtContact"
+            android:id="@+id/edtContact"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="40dp"
+            android:layout_marginStart="40dp"
             android:text=": 경조사, 개인 신상변동 사항 등"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/rbContact" />
@@ -125,19 +125,19 @@
             android:id="@+id/rbEditor"
             android:layout_width="wrap_content"
             android:layout_height="41dp"
-            android:layout_marginLeft="8dp"
+            android:layout_marginStart="8dp"
             android:layout_marginTop="2dp"
             android:fontFamily="serif"
             android:text="편집국장"
             android:textSize="18sp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/txtContact" />
+            app:layout_constraintTop_toBottomOf="@+id/edtContact" />
 
         <TextView
             android:id="@+id/txtEditor"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="40dp"
+            android:layout_marginStart="40dp"
             android:text=': 동기회 역사 자료, 한백밴드, "한백인" 앱 개선 등'
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/rbEditor" />

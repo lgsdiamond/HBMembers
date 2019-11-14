@@ -3,12 +3,17 @@ package com.lgsdiamond.hbmembers
 import android.graphics.Typeface
 import android.graphics.drawable.Drawable
 import android.media.MediaPlayer
+import android.text.InputType
 import android.text.Spannable
 import android.text.SpannableString
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
+import android.widget.EditText
 import android.widget.ImageView
 import android.widget.Toast
+import com.google.android.material.snackbar.Snackbar
+import com.lgsdiamond.hbmembers.LgsUtility.Companion.titleFaceSpan
 import java.io.InputStream
 
 
@@ -34,12 +39,20 @@ fun Menu.customFaceMenu(face: Typeface) {
 	}
 }
 
+
+//=== EditText ===
+fun EditText.setReadOnly(toReadOnly: Boolean, inputType: Int = InputType.TYPE_NULL) {
+	isFocusable = !toReadOnly
+	isFocusableInTouchMode = !toReadOnly
+	this.inputType = inputType
+}
+
 //=== ImageView ===
 fun ImageView.loadDrawableFromAssets(path: String): Drawable? {
 	var stream: InputStream? = null
 	var drawable: Drawable? = null
 	try {
-		stream = gMainActivity.assets.open(path)
+		stream = gActivity.assets.open(path)
 		drawable = Drawable.createFromStream(stream, null)
 		this.setImageDrawable(drawable)
 	} catch (ignored: Exception) {
@@ -56,21 +69,32 @@ fun ImageView.loadDrawableFromAssets(path: String): Drawable? {
 
 //=== CharSequence ===
 fun CharSequence.toToast() {
-	Toast.makeText(gMainActivity, this, Toast.LENGTH_SHORT).show()
+	Toast.makeText(gActivity, this, Toast.LENGTH_SHORT).show()
 }
 
 
 //=== String ===
 fun String.toToastTitle() {
-	Toast.makeText(gMainActivity, LgsUtility.titleFaceSpan(this), Toast.LENGTH_SHORT).show()
+	Toast.makeText(gActivity, titleFaceSpan(this), Toast.LENGTH_SHORT).show()
 }
 
-fun CharSequence.toTitleFace(): CharSequence {
-	return LgsUtility.titleFaceSpan(this)
+fun String.toTitleFace(): CharSequence {
+	return titleFaceSpan(this)
+}
+
+fun String.toSnackBarOK(view: View) {
+	Snackbar.make(view, this, Snackbar.LENGTH_LONG)
+		.setAction(R.string.ok_confirm, View.OnClickListener {
+		})
+		.show()
 }
 
 fun String.removeWhitespaces(): String {
 	return replace("\\s+".toRegex(), "")
+}
+
+fun String.onlyDigits(): String {
+	return replace(Regex("""[\D]"""), "")
 }
 
 
@@ -78,29 +102,29 @@ fun String.removeWhitespaces(): String {
 fun MediaPlayer.startOnOff() = if (gIsSoundOn) this.start() else Unit
 
 val soundTick: MediaPlayer by lazy {
-	MediaPlayer.create(gMainActivity, R.raw.tick)
+	MediaPlayer.create(gActivity, R.raw.tick)
 }
 
 val soundClick: MediaPlayer by lazy {
-	MediaPlayer.create(gMainActivity, R.raw.click)
+	MediaPlayer.create(gActivity, R.raw.click)
 }
 
 val soundList: MediaPlayer by lazy {
-	MediaPlayer.create(gMainActivity, R.raw.list)
+	MediaPlayer.create(gActivity, R.raw.list)
 }
 
 val soundMessage: MediaPlayer by lazy {
-	MediaPlayer.create(gMainActivity, R.raw.message)
+	MediaPlayer.create(gActivity, R.raw.message)
 }
 
 val soundOpening: MediaPlayer by lazy {
-	MediaPlayer.create(gMainActivity, R.raw.openning)
+	MediaPlayer.create(gActivity, R.raw.openning)
 }
 
 val soundSliding: MediaPlayer by lazy {
-	MediaPlayer.create(gMainActivity, R.raw.sliding)
+	MediaPlayer.create(gActivity, R.raw.sliding)
 }
 
 val soundBook: MediaPlayer by lazy {
-	MediaPlayer.create(gMainActivity, R.raw.book)
+	MediaPlayer.create(gActivity, R.raw.book)
 }

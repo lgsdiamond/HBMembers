@@ -29,7 +29,7 @@ import kotlinx.android.synthetic.main.content_main.*
 class MainActivity : AppCompatActivity() {
 	val defPreferences: SharedPreferences by lazy { getSharedPreferences(PREF_NAME, 0) }
 	
-	lateinit var memberDBAccess: DatabaseAccess
+	lateinit var dbAccess: HbDbAccess
 	lateinit var memberFragment: MemberFragment
 	
 	companion object {
@@ -87,7 +87,7 @@ class MainActivity : AppCompatActivity() {
 	}
 	
 	init {
-		gMainActivity = this@MainActivity           // Global property
+		gActivity = this@MainActivity           // Global property
 	}
 	
 	private lateinit var appBarConfiguration: AppBarConfiguration
@@ -138,7 +138,7 @@ class MainActivity : AppCompatActivity() {
 	private fun initiateActivity() {
 		readRegisteredUserName()
 		
-		if (memberDBAccess.isValidMember(registeredNumber, registeredName)) {
+		if (dbAccess.isValidMember(registeredNumber, registeredName)) {
 			setRegistered(true)
 			LgsUtility.showToastShort("사용자는 \"$registeredName\"입니다.")
 			notifyPendingName(registeredName)
@@ -273,7 +273,7 @@ class MainActivity : AppCompatActivity() {
 	
 	// registered user
 	private fun readRegisteredUserName() {
-		registeredNumber = defPreferences.getString(PREF_KEY_NUMBER, "0000")!!
+		registeredNumber = defPreferences.getString(PREF_KEY_NUMBER, "")!!
 		registeredName = defPreferences.getString(PREF_KEY_NAME, "")!!
 	}
 	
@@ -296,14 +296,14 @@ class MainActivity : AppCompatActivity() {
 	
 	// db access
 	private fun activateDB() {
-		val dbAccess = DatabaseAccess.getInstance(this)
+		val dbAccess = HbDbAccess.getInstance(this)
 		
 		if (dbAccess == null) {
 			"DB 파일이 없습니다".toToastTitle()
-			gMainActivity.finishApp(false)
+			gActivity.finishApp(false)
 		} else {
-			memberDBAccess = dbAccess
-			memberDBAccess.open()
+			this.dbAccess = dbAccess
+			this.dbAccess.open()
 		}
 	}
 	
@@ -389,6 +389,9 @@ class MainActivity : AppCompatActivity() {
 	
 	override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String>,
 											grantResults: IntArray) {
+		
+		if (grantResults.isEmpty()) return
+		
 		when (requestCode) {
 			REQUEST_CALL    -> notifyPermissionResult(grantResults[0],  // 0
 				R.string.permission_available_call, R.string.permission_denied_call)

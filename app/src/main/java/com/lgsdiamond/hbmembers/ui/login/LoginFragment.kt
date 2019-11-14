@@ -37,7 +37,7 @@ class LoginFragment : Fragment() {
 	
 	private fun initFragmentUI() {
 		
-		gMainActivity.hideActionButtons()
+		gActivity.hideActionButtons()
 		
 		loginPhoto.scaleType = ImageView.ScaleType.FIT_XY
 		
@@ -53,9 +53,9 @@ class LoginFragment : Fragment() {
 			}
 			
 			if (number.length == 4 && nameInput.length > 1) {     // not too short
-				val nameOutput = gMainActivity.memberDBAccess.getNameFromNumber(number)
+				val nameOutput = gActivity.dbAccess.getNameFromNumber(number)
 				if (!nameInput.contains("(고)") && isMatchingName(nameInput, nameOutput)) {
-					gMainActivity.setRegisteredUser(number, nameOutput)
+					gActivity.setRegisteredUser(number, nameOutput)
 					
 					edtUserNumber.setText(number)
 					edtUserName.setText(nameOutput)
@@ -69,7 +69,7 @@ class LoginFragment : Fragment() {
 					
 					
 				} else {
-					gMainActivity.setRegisteredUser(number, "")
+					gActivity.setRegisteredUser(number, "")
 					MainActivity.setRegistered(false)
 					
 					LgsUtility.showToastShort("유효한 회원 정보가 아닙니다.")

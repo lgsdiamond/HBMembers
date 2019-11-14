@@ -15,7 +15,7 @@ import com.readystatesoftware.sqliteasset.SQLiteAssetHelper
  * Created by LgsDiamond on 2018-02-17.
  */
 
-class DatabaseAccess
+class HbDbAccess
 /**
  * Private constructor to avoid object creation from outside classes.
  *
@@ -29,7 +29,7 @@ private constructor(context: Context) {
 	private val dbVersion = 4
 	
 	init {
-		this.openHelper = DBHelper(context, FILENAME_DB, dbVersion)
+		this.openHelper = HbDbHelper(context, FILENAME_DB, dbVersion)
 	}
 	
 	/**
@@ -59,14 +59,14 @@ private constructor(context: Context) {
 			var memberInfo: MemberInfo? = null
 			
 			var sqlCmd =
-				"SELECT * FROM ${DBHelper.dbTableMember} WHERE ${DBHelper.dbMemberName} = \'$name\'"
+				"SELECT * FROM ${HbDbHelper.dbTableMember} WHERE ${HbDbHelper.dbMemberName} = \'$name\'"
 			cursor = mDatabase.rawQuery(sqlCmd, null)
 			var count = cursor.count
 			
 			// try to find a person
 			if (count == 0) {
 				sqlCmd =
-					"SELECT * FROM ${DBHelper.dbTableMember} WHERE ${DBHelper.dbMemberName} LIKE \'%$name%\'"
+					"SELECT * FROM ${HbDbHelper.dbTableMember} WHERE ${HbDbHelper.dbMemberName} LIKE \'%$name%\'"
 				cursor = mDatabase.rawQuery(sqlCmd, null)
 				count = cursor.count
 				
@@ -75,7 +75,7 @@ private constructor(context: Context) {
 					val array = CharArray(2)
 					name.toCharArray(array, 0, nameLength - 2, nameLength)
 					sqlCmd =
-						"SELECT * FROM ${DBHelper.dbTableMember} WHERE ${DBHelper.dbMemberName} LIKE " + "\'%" +
+						"SELECT * FROM ${HbDbHelper.dbTableMember} WHERE ${HbDbHelper.dbMemberName} LIKE " + "\'%" +
 								array[0] + array[1] + "%\'"
 					cursor = mDatabase.rawQuery(sqlCmd, null)
 					count = cursor.count
@@ -83,9 +83,9 @@ private constructor(context: Context) {
 				
 				// 한글 초성 검색" 2개 또는 3개의 초성만 검색
 				if ((count == 0) && (nameLength >= 2) && (nameLength <= 4)) {
-					val chosungSQL = ChoSearchQuery.makeQuery(DBHelper.dbMemberName, name)
+					val chosungSQL = ChoSearchQuery.makeQuery(HbDbHelper.dbMemberName, name)
 					
-					sqlCmd = "SELECT * FROM ${DBHelper.dbTableMember} WHERE $chosungSQL"
+					sqlCmd = "SELECT * FROM ${HbDbHelper.dbTableMember} WHERE $chosungSQL"
 					cursor = mDatabase.rawQuery(sqlCmd, null)
 					count = cursor.count
 				}
@@ -109,15 +109,101 @@ private constructor(context: Context) {
 					getValidString(cursor.getString(MemberDBCol.REFERENCE.ordinal))
 				
 				memberInfo.mCompany12All =
-					getValidString(getSingleAll(memberInfo.mCompany12, DBHelper.dbMemberCompany12))
+					getValidString(getSingleAll(memberInfo.mCompany12,
+						HbDbHelper.dbMemberCompany12))
 				memberInfo.mCompany34All =
-					getValidString(getSingleAll(memberInfo.mCompany34, DBHelper.dbMemberCompany34))
+					getValidString(getSingleAll(memberInfo.mCompany34,
+						HbDbHelper.dbMemberCompany34))
 				memberInfo.mSchoolAll =
-					getValidString(getSingleAll(memberInfo.mSchool, DBHelper.dbMemberSchool))
+					getValidString(getSingleAll(memberInfo.mSchool, HbDbHelper.dbMemberSchool))
 				memberInfo.mMajorAll =
-					getValidString(getSingleAll(memberInfo.mMajor, DBHelper.dbMemberMajor))
+					getValidString(getSingleAll(memberInfo.mMajor, HbDbHelper.dbMemberMajor))
 				memberInfo.mBranchAll =
-					getValidString(getSingleAll(memberInfo.mBranch, DBHelper.dbMemberBranch))
+					getValidString(getSingleAll(memberInfo.mBranch, HbDbHelper.dbMemberBranch))
+			} else if (count > 1) {     // if multiple members, select one member through popupMenu
+				LgsUtility.showSoftKeyboard(false)
+				
+				if (anchorView != null) {
+					val popupMenu = PopupMenu(anchorView.context, anchorView)
+					val menu = popupMenu.menu
+					cursor.moveToFirst()
+					var memberName: String
+					var index = 0
+					while (!cursor.isAfterLast) {
+						memberName = cursor.getString(MemberDBCol.NAME.ordinal)
+						menu.add(0, index++, 0, memberName)
+						cursor.moveToNext()
+					}
+					
+					menu.customFaceMenu(titleFace)
+					
+					popupMenu.show()
+					
+					popupMenu.setOnMenuItemClickListener { menuItem ->
+						val name = menuItem.title.toString()
+						gActivity.memberFragment.updateMemberInfo(null, name)
+						true    // consume the click
+					}
+				}
+			}
+			
+			return memberInfo
+		}
+		finally {
+			cursor?.close()
+		}
+	}
+	
+	fun getMemberInfoByContact(contact: String, anchorView: View?): MemberInfo? {
+		// contact should be only numbers and at least 4 numbers
+		var cursor: Cursor? = null
+		try {
+			var memberInfo: MemberInfo? = null
+			
+			var sqlCmd =
+				"SELECT * FROM ${HbDbHelper.dbTableMember} WHERE REPLACE(${HbDbHelper.dbMemberContact},'-','') = \'$contact\'"
+			
+			cursor = mDatabase.rawQuery(sqlCmd, null)
+			var count = cursor.count
+			
+			// try to find a person
+			if (count == 0) {
+				sqlCmd =
+					"SELECT * FROM ${HbDbHelper.dbTableMember} WHERE REPLACE(${HbDbHelper.dbMemberContact},'-','') LIKE \'%$contact%\'"
+				
+				cursor = mDatabase.rawQuery(sqlCmd, null)
+				count = cursor.count
+			}
+			
+			if (count == 1) {    // if single member
+				memberInfo = MemberInfo()
+				cursor.moveToFirst()
+				
+				memberInfo.mNumber = getValidString(cursor.getString(MemberDBCol.NUMBER.ordinal))
+				memberInfo.mName = getValidString(cursor.getString(MemberDBCol.NAME.ordinal))
+				memberInfo.mCompany12 =
+					getValidString(cursor.getString(MemberDBCol.COMPANY12.ordinal))
+				memberInfo.mCompany34 =
+					getValidString(cursor.getString(MemberDBCol.COMPANY34.ordinal))
+				memberInfo.mSchool = getValidString(cursor.getString(MemberDBCol.SCHOOL.ordinal))
+				memberInfo.mMajor = getValidString(cursor.getString(MemberDBCol.MAJOR.ordinal))
+				memberInfo.mContact = getValidString(cursor.getString(MemberDBCol.CONTACT.ordinal))
+				memberInfo.mBranch = getValidString(cursor.getString(MemberDBCol.BRANCH.ordinal))
+				memberInfo.mReference =
+					getValidString(cursor.getString(MemberDBCol.REFERENCE.ordinal))
+				
+				memberInfo.mCompany12All =
+					getValidString(getSingleAll(memberInfo.mCompany12,
+						HbDbHelper.dbMemberCompany12))
+				memberInfo.mCompany34All =
+					getValidString(getSingleAll(memberInfo.mCompany34,
+						HbDbHelper.dbMemberCompany34))
+				memberInfo.mSchoolAll =
+					getValidString(getSingleAll(memberInfo.mSchool, HbDbHelper.dbMemberSchool))
+				memberInfo.mMajorAll =
+					getValidString(getSingleAll(memberInfo.mMajor, HbDbHelper.dbMemberMajor))
+				memberInfo.mBranchAll =
+					getValidString(getSingleAll(memberInfo.mBranch, HbDbHelper.dbMemberBranch))
 			} else if (count > 1) {     // if multiple members, select one member through popupMenu
 				LgsUtility.showSoftKeyboard(false)
 				
@@ -139,7 +225,7 @@ private constructor(context: Context) {
 					
 					popupMenu.setOnMenuItemClickListener { menuItem ->
 						val menuName = menuItem.title.toString()
-						gMainActivity.memberFragment.updateMemberInfo(menuName, null)
+						gActivity.memberFragment.updateMemberInfo(null, menuName)
 						true    // consume the click
 					}
 				}
@@ -152,6 +238,7 @@ private constructor(context: Context) {
 		}
 	}
 	
+	
 	private fun getSingleAll(
 		singleId: String,
 		dbIndexName: String,
@@ -163,7 +250,7 @@ private constructor(context: Context) {
 		var cursor: Cursor? = null
 		try {
 			val sqlCmd =
-				"SELECT ${DBHelper.dbMemberName} FROM ${DBHelper.dbTableMember} WHERE $dbIndexName = \'$singleId\' ORDER BY ${DBHelper.dbMemberName}"
+				"SELECT ${HbDbHelper.dbMemberName} FROM ${HbDbHelper.dbTableMember} WHERE $dbIndexName = \'$singleId\' ORDER BY ${HbDbHelper.dbMemberName}"
 			cursor = mDatabase.rawQuery(sqlCmd, null)
 			
 			val count = cursor!!.count
@@ -258,7 +345,7 @@ private constructor(context: Context) {
 		try {
 			var userName = ""
 			val sqlCmd =
-				("SELECT ${DBHelper.dbMemberName} FROM ${DBHelper.dbTableMember} WHERE ${DBHelper.dbMemberNumber} = "
+				("SELECT ${HbDbHelper.dbMemberName} FROM ${HbDbHelper.dbTableMember} WHERE ${HbDbHelper.dbMemberNumber} = "
 						+ "\'" + userNumber + "\'")
 			cursor = mDatabase.rawQuery(sqlCmd, null)
 			val count = cursor!!.count
@@ -286,7 +373,7 @@ private constructor(context: Context) {
 		var cursor: Cursor? = null
 		try {
 			val sqlCmd =
-				"SELECT ${DBHelper.dbBoardName} FROM ${DBHelper.dbTableBoard} WHERE ${DBHelper.dbBoardTitle} = \'$title\'"
+				"SELECT ${HbDbHelper.dbBoardName} FROM ${HbDbHelper.dbTableBoard} WHERE ${HbDbHelper.dbBoardTitle} = \'$title\'"
 			cursor = mDatabase.rawQuery(sqlCmd, null)
 			val count = cursor.count
 			if (count < 1) return null        // no one found
@@ -323,17 +410,17 @@ private constructor(context: Context) {
 	}
 	
 	companion object {
-		private var instance: DatabaseAccess? = null
+		private var instance: HbDbAccess? = null
 		
 		/**
-		 * Return a singleton instance of DatabaseAccess.
+		 * Return a singleton instance of HbDbAccess.
 		 *
 		 * @param context the Context
-		 * @return the instance of DatabaseAccess
+		 * @return the instance of HbDbAccess
 		 */
-		fun getInstance(context: Context): DatabaseAccess? {
+		fun getInstance(context: Context): HbDbAccess? {
 			if (instance == null) {
-				instance = DatabaseAccess(context)
+				instance = HbDbAccess(context)
 			}
 			return instance
 		}
@@ -356,7 +443,7 @@ private constructor(context: Context) {
 	}
 }
 
-class DBHelper(context: Context, fileName: String, dbVersion: Int) :
+class HbDbHelper(context: Context, fileName: String, dbVersion: Int) :
 	SQLiteAssetHelper(context, fileName, null, dbVersion) {
 	companion object {
 		const val dbTableMember: String = "members"

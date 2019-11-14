@@ -23,9 +23,9 @@
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_margin">@dimen/list_margin</item>
-        <item name="android:layout_marginLeft">16dp</item>
+        <item name="android:layout_marginStart">16dp</item>
         <item name="android:textAllCaps">false</item>
-        <item name="android:layout_marginRight">8dp</item>
+        <item name="android:layout_marginEnd">8dp</item>
         <item name="android:background">@android:color/transparent</item>
         <item name="android:fontFamily">serif</item>
         <item name="android:textAppearance">?attr/textAppearanceListItem</item>
@@ -39,8 +39,8 @@
         <item name="android:layout_margin">@dimen/list_margin</item>
         <item name="android:layout_marginTop">5dp</item>
         <item name="android:layout_marginBottom">5dp</item>
-        <item name="android:layout_marginLeft">0dp</item>
-        <item name="android:layout_marginRight">0dp</item>
+        <item name="android:layout_marginStart">0dp</item>
+        <item name="android:layout_marginEnd">0dp</item>
         <item name="android:background">@android:color/transparent</item>
         <item name="android:textAllCaps">false</item>
         <item name="android:singleLine">false</item>
@@ -110,8 +110,8 @@
         <item name="android:paddingLeft">@dimen/edit_margin</item>
         <item name="android:paddingRight">@dimen/edit_margin</item>
         <item name="android:textSize">20sp</item>
-        <item name="android:layout_marginLeft">200dp</item>
-        <item name="android:layout_marginRight">200dp</item>
+        <item name="android:layout_marginStart">200dp</item>
+        <item name="android:layout_marginEnd">200dp</item>
     </style>
 
     <style name="trans_button" parent="@android:style/Widget.ImageButton">

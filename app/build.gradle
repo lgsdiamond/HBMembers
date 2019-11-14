@@ -23,10 +23,11 @@ android {
         versionCode 36      // to be - 2019.11.15
         versionName "9.9"   // to be - 2019.11.15
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        signingConfig signingConfigs.release
     }
     buildTypes {
         release {
-            minifyEnabled true
+            minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
             signingConfig signingConfigs.release
         }
@@ -87,6 +88,7 @@ dependencies {
     // for firebase
     implementation 'com.google.firebase:firebase-analytics:17.2.1'
     implementation 'com.google.firebase:firebase-database:19.2.0'
+    implementation 'com.google.firebase:firebase-messaging:20.0.0'      // remove crash in clean run
 }
 
 // for firebase

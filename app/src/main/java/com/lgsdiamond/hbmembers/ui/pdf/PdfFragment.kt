@@ -33,7 +33,7 @@ abstract class PdfFragment : Fragment() {
 	
 	private fun initFragmentUI(view: View) {
 		//----------------------------------------------
-		if (!gMainActivity.confirmRegistered()) return
+		if (!gActivity.confirmRegistered()) return
 		//----------------------------------------------
 		
 		val pdfName = when (fragmentID) {

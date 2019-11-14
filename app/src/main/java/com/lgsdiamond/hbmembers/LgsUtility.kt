@@ -1,13 +1,11 @@
 package com.lgsdiamond.hbmembers
 
-import android.Manifest
 import android.app.Activity
 import android.app.PendingIntent
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
-import android.content.pm.PackageManager
 import android.content.pm.ResolveInfo
 import android.graphics.Paint
 import android.graphics.Typeface
@@ -19,16 +17,11 @@ import android.text.TextPaint
 import android.text.style.ForegroundColorSpan
 import android.text.style.RelativeSizeSpan
 import android.text.style.TypefaceSpan
-import android.util.Log
 import android.view.View
 import android.view.animation.*
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
-import androidx.core.app.ActivityCompat
-import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
-import com.google.android.material.snackbar.Snackbar
-import kotlinx.android.synthetic.main.snack_bar_ok.*
 
 /**
  * Created by LgsDiamond on 2018-02-18.
@@ -124,7 +117,7 @@ class LgsUtility {
 		fun installedPackage(packageID: String): Boolean {
 			var isExist = false
 			
-			val pkgMgr = gMainActivity.packageManager
+			val pkgMgr = gActivity.packageManager
 			val mApps: List<ResolveInfo>
 			val mainIntent = Intent(Intent.ACTION_MAIN, null)
 			mainIntent.addCategory(Intent.CATEGORY_LAUNCHER)
@@ -162,15 +155,15 @@ class LgsUtility {
 			
 			if (permit) {
 				val sentIntent = PendingIntent.getBroadcast(
-					gMainActivity,
+					gActivity,
 					0, Intent("SMS_SENT_ACTION"), 0
 				)
 				val deliveredIntent = PendingIntent.getBroadcast(
-					gMainActivity,
+					gActivity,
 					0, Intent("SMS_DELIVERED_ACTION"), 0
 				)
 				
-				gMainActivity.registerReceiver(object : BroadcastReceiver() {
+				gActivity.registerReceiver(object : BroadcastReceiver() {
 					override fun onReceive(context: Context, intent: Intent) {
 						when (resultCode) {
 							Activity.RESULT_OK                      ->
@@ -187,7 +180,7 @@ class LgsUtility {
 					}
 				}, IntentFilter("SMS_SENT_ACTION"))
 				
-				gMainActivity.registerReceiver(object : BroadcastReceiver() {
+				gActivity.registerReceiver(object : BroadcastReceiver() {
 					override fun onReceive(context: Context, intent: Intent) {
 						when (resultCode) {
 							Activity.RESULT_OK       ->

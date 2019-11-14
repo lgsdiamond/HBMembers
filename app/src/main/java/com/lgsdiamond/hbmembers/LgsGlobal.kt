@@ -12,7 +12,6 @@ import android.text.style.RelativeSizeSpan
 import android.text.style.UnderlineSpan
 import android.util.AttributeSet
 import android.view.View
-import android.widget.TextView
 import androidx.appcompat.widget.AppCompatTextView
 import androidx.core.content.ContextCompat
 import androidx.navigation.findNavController
@@ -21,7 +20,7 @@ import java.util.*
 
 //=== global property ===
 
-lateinit var gMainActivity: MainActivity
+lateinit var gActivity: MainActivity
 val gRandom = Random()
 var gIsSoundOn = true
 
@@ -81,7 +80,7 @@ class ClickableNameTextView : AppCompatTextView {
 			fromIndex = toIndex
 		}
 		
-		highlightColor = ContextCompat.getColor(gMainActivity, R.color.search_highlight)
+		highlightColor = ContextCompat.getColor(gActivity, R.color.search_highlight)
 		movementMethod = LinkMovementMethod.getInstance()
 		
 		super.setText(span, BufferType.SPANNABLE)
