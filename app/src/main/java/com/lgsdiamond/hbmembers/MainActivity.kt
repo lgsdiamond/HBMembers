@@ -114,9 +114,6 @@ class MainActivity : AppCompatActivity() {
         // Utility initialization
         LgsUtility.initUtility(this)
 
-        // read pref(sound)
-// TODO        gIsSoundOn = defPreferences.getBoolean(PREF_KEY_SOUND, true)
-
         // Activate DB access
         activateDB()
 
@@ -125,7 +122,6 @@ class MainActivity : AppCompatActivity() {
 
         // initiate activity
         initiateActivity()
-
     }
 
     private fun initiateActivity() {
@@ -283,7 +279,7 @@ class MainActivity : AppCompatActivity() {
 
     // registered user
     private fun readRegisteredUserName() {
-        registeredNumber = defPreferences.getString(PREF_KEY_NUMBER, "")!!
+        registeredNumber = defPreferences.getString(PREF_KEY_NUMBER, "0000")!!
         registeredName = defPreferences.getString(PREF_KEY_NAME, "")!!
     }
 
