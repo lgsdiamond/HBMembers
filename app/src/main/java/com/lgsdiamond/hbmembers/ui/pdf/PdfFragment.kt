@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import com.github.barteksc.pdfviewer.util.FitPolicy
 import com.lgsdiamond.hbmembers.*
+import com.lgsdiamond.hbmembers.LgsUtility.Companion.animateCenterScale
 import kotlinx.android.synthetic.main.fragment_pdf.*
 
 abstract class PdfFragment : Fragment() {
@@ -47,6 +48,6 @@ abstract class PdfFragment : Fragment() {
 			.pageFitPolicy(FitPolicy.BOTH)
 			.load()
 		
-		LgsUtility.animateCenterScale(view)
+		animateCenterScale(view)
 	}
 }

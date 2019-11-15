@@ -26,7 +26,13 @@ import com.kakao.util.helper.log.Logger
 import com.lgsdiamond.hbmembers.*
 import com.lgsdiamond.hbmembers.LgsUtility.Companion.contentFace
 import com.lgsdiamond.hbmembers.LgsUtility.Companion.correctCompanyName
+import com.lgsdiamond.hbmembers.LgsUtility.Companion.getPhoneNumber
 import com.lgsdiamond.hbmembers.LgsUtility.Companion.getSpannedCompany
+import com.lgsdiamond.hbmembers.LgsUtility.Companion.openAndroidApp
+import com.lgsdiamond.hbmembers.LgsUtility.Companion.phoneCall
+import com.lgsdiamond.hbmembers.LgsUtility.Companion.sendSMS
+import com.lgsdiamond.hbmembers.LgsUtility.Companion.showSoftKeyboard
+import com.lgsdiamond.hbmembers.LgsUtility.Companion.showToastShort
 import com.lgsdiamond.hbmembers.LgsUtility.Companion.titleFace
 import com.lgsdiamond.hbmembers.MainActivity.Companion.sInstalled_KAKAOTalk
 import kotlinx.android.synthetic.main.custom_memo_dialog.*
@@ -59,10 +65,10 @@ class MemberFragment : Fragment() {
 		val helpCount = gActivity.readHelpCount()
 		if (helpCount < 20) {
 			when (gRandom.nextInt(4)) {
-				0    -> LgsUtility.showToastShort("회원 이름을 누르면 해당 회원의 정보를 볼 수 있습니다.")
-				1    -> LgsUtility.showToastShort("아래 버튼을 클릭하여 다양한 동기회 정보를 볼 수 있습니다.")
-				2    -> LgsUtility.showToastShort("사진 버튼을 클릭하여 회원의 사진을 볼 수 있습니다.")
-				else -> LgsUtility.showToastShort("연락처와 메모를 수정하여 저장할 수 있습니다.")
+				0    -> showToastShort("회원 이름을 누르면 해당 회원의 정보를 볼 수 있습니다.")
+				1    -> showToastShort("아래 버튼을 클릭하여 다양한 동기회 정보를 볼 수 있습니다.")
+				2    -> showToastShort("사진 버튼을 클릭하여 회원의 사진을 볼 수 있습니다.")
+				else -> showToastShort("연락처와 메모를 수정하여 저장할 수 있습니다.")
 			}
 			gActivity.writeHelpCount(helpCount + 1)
 		}
@@ -80,7 +86,7 @@ class MemberFragment : Fragment() {
 		
 		gActivity.showNavActionButtons()
 		
-		loMemberMain.setOnClickListener { LgsUtility.showSoftKeyboard(false) }
+		loMemberMain.setOnClickListener { showSoftKeyboard(false) }
 		
 		txtCompany_34_pic.setOnClickListener { showCompanyPic() }
 		txtCompany_34.setOnClickListener { showCompanyPic() }
@@ -111,7 +117,7 @@ class MemberFragment : Fragment() {
 		btnSearch.setOnClickListener { v ->
 			soundTick.startOnOff()
 			
-			LgsUtility.showSoftKeyboard(false)
+			showSoftKeyboard(false)
 			val strName = edtFindName.text.toString().removeWhitespaces()
 			var strContact = edtContact.text.toString().removeWhitespaces()
 			
@@ -131,13 +137,13 @@ class MemberFragment : Fragment() {
 		
 		btnCall.setOnClickListener {
 			val permitted = gActivity.confirmPermission(Manifest.permission.CALL_PHONE)
-			val number = LgsUtility.getPhoneNumber(edtContact.text.toString())
+			val number = getPhoneNumber(edtContact.text.toString())
 			if (number.contains("+")) {
 				val builder = AlertDialog.Builder(activity)
 					.setTitle("국제전화 확인".toTitleFace())
 					.setMessage("$number 은(는) 국제전화입니다. 전화할까요?".toTitleFace())
 					.setPositiveButton("예".toTitleFace()) { _, _ ->
-						LgsUtility.phoneCall(edtContact.text.toString(), permitted)
+						phoneCall(edtContact.text.toString(), permitted)
 					}
 					.setNegativeButton("아니요".toTitleFace(), null)
 				
@@ -145,13 +151,13 @@ class MemberFragment : Fragment() {
 				dialog.setIcon(R.drawable.ic_phone_call)
 				dialog.show()
 			} else {
-				LgsUtility.phoneCall(edtContact.text.toString(), permitted)
+				phoneCall(edtContact.text.toString(), permitted)
 			}
 		}
 		
 		btnSMS.setOnClickListener {
 			val permitted = gActivity.confirmPermission(Manifest.permission.SEND_SMS)
-			val number = LgsUtility.getPhoneNumber(edtContact.text.toString())
+			val number = getPhoneNumber(edtContact.text.toString())
 			
 			val name = edtFindName.text.toString()
 			val edtMessage =
@@ -171,7 +177,7 @@ class MemberFragment : Fragment() {
 						"보낼 메시지 내용이 없습니다.".toToastTitle()
 					} else {
 						msg = "[한백]\n\"$msg"
-						LgsUtility.sendSMS(number, msg, permitted)
+						sendSMS(number, msg, permitted)
 					}
 				}
 				.setNegativeButton("취소".toTitleFace(), null)
@@ -186,7 +192,7 @@ class MemberFragment : Fragment() {
 				sendKakaoMessage()
 			} catch (e: KakaoParameterException) {
 				e.printStackTrace()
-				LgsUtility.openAndroidApp(
+				openAndroidApp(
 					MainActivity.KAKAOTALK_PACKAGE_ID,
 					MainActivity.KAKAOTALK_PACKAGE_NAME
 				)
@@ -199,9 +205,9 @@ class MemberFragment : Fragment() {
 		
 		edtFindName.setOnFocusChangeListener { _, hasFocus ->
 			if (hasFocus) {
-				LgsUtility.showSoftKeyboard(true)
+				showSoftKeyboard(true)
 			} else {
-				LgsUtility.showSoftKeyboard(false)
+				showSoftKeyboard(false)
 			}
 		}
 		
@@ -626,7 +632,7 @@ class MemberFragment : Fragment() {
 			}
 		}
 		
-		LgsUtility.animateCenterScale(loMemberMain)
+		animateCenterScale(loMemberMain)
 	}
 	
 	fun updateMemberInfo(v: View?,
@@ -656,7 +662,7 @@ class MemberFragment : Fragment() {
 				.setPositiveButton("공유하기".toTitleFace()) { _, _ ->
 					val msg = edtMessage.text.toString().trim { it <= ' ' }
 					if (msg.isEmpty()) {
-						LgsUtility.showToastShort("공유할 메시지 내용이 없습니다.")
+						showToastShort("공유할 메시지 내용이 없습니다.")
 					} else {
 						try {
 							val params: TextTemplate? = TextTemplate.newBuilder(
@@ -689,7 +695,7 @@ class MemberFragment : Fragment() {
 			dialog.show()
 		} catch (e: KakaoParameterException) {
 			e.printStackTrace()
-			LgsUtility.openAndroidApp(
+			openAndroidApp(
 				MainActivity.KAKAOTALK_PACKAGE_ID,
 				MainActivity.KAKAOTALK_PACKAGE_NAME
 			)

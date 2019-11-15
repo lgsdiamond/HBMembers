@@ -10,9 +10,12 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
 import com.lgsdiamond.hbmembers.*
 import com.lgsdiamond.hbmembers.LgsUtility.Companion.isMatchingName
+import com.lgsdiamond.hbmembers.LgsUtility.Companion.showSoftKeyboard
+import com.lgsdiamond.hbmembers.LgsUtility.Companion.showToastShort
 import com.lgsdiamond.hbmembers.MainActivity.Companion.ADMIN_NAME
 import com.lgsdiamond.hbmembers.MainActivity.Companion.ADMIN_NUMBER
 import com.lgsdiamond.hbmembers.MainActivity.Companion.ADMIN_REAL_NAME
+import com.lgsdiamond.hbmembers.MainActivity.Companion.setRegistered
 import kotlinx.android.synthetic.main.fragment_login.*
 
 class LoginFragment : Fragment() {
@@ -59,9 +62,9 @@ class LoginFragment : Fragment() {
 					
 					edtUserNumber.setText(number)
 					edtUserName.setText(nameOutput)
-					MainActivity.setRegistered(true)
+					setRegistered(true)
 					
-					LgsUtility.showToastShort("\"$nameOutput\"(으)로 로그인되었습니다.")
+					showToastShort("\"$nameOutput\"(으)로 로그인되었습니다.")
 					
 					soundOpening.startOnOff()
 					MainActivity.notifyPendingName(nameOutput)
@@ -70,16 +73,14 @@ class LoginFragment : Fragment() {
 					
 				} else {
 					gActivity.setRegisteredUser(number, "")
-					MainActivity.setRegistered(false)
-					
-					LgsUtility.showToastShort("유효한 회원 정보가 아닙니다.")
+					setRegistered(false)
+					showToastShort("유효한 회원 정보가 아닙니다.")
 					soundSliding.startOnOff()
 				}
-			} else {
-				LgsUtility.showToastShort("입력내용이 적합하지 않습니다.")
+			} else { showToastShort("입력내용이 적합하지 않습니다.")
 				soundSliding.startOnOff()
 			}
-			LgsUtility.showSoftKeyboard(false)
+			showSoftKeyboard(false)
 		}
 		
 		edtUserName.hint = "이름"

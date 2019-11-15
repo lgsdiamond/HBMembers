@@ -6,6 +6,8 @@ import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
 import android.view.View
 import android.widget.PopupMenu
+import com.lgsdiamond.hbmembers.LgsUtility.Companion.isMatchingName
+import com.lgsdiamond.hbmembers.LgsUtility.Companion.showSoftKeyboard
 import com.lgsdiamond.hbmembers.LgsUtility.Companion.titleFace
 import com.lgsdiamond.hbmembers.MainActivity.Companion.PREF_KEY_CONTACT
 import com.lgsdiamond.hbmembers.MainActivity.Companion.PREF_KEY_MEMO
@@ -121,7 +123,7 @@ private constructor(context: Context) {
 				memberInfo.mBranchAll =
 					getValidString(getSingleAll(memberInfo.mBranch, HbDbHelper.dbMemberBranch))
 			} else if (count > 1) {     // if multiple members, select one member through popupMenu
-				LgsUtility.showSoftKeyboard(false)
+				showSoftKeyboard(false)
 				
 				if (anchorView != null) {
 					val popupMenu = PopupMenu(anchorView.context, anchorView)
@@ -205,7 +207,7 @@ private constructor(context: Context) {
 				memberInfo.mBranchAll =
 					getValidString(getSingleAll(memberInfo.mBranch, HbDbHelper.dbMemberBranch))
 			} else if (count > 1) {     // if multiple members, select one member through popupMenu
-				LgsUtility.showSoftKeyboard(false)
+				showSoftKeyboard(false)
 				
 				if (anchorView != null) {
 					val popupMenu = PopupMenu(anchorView.context, anchorView)
@@ -366,7 +368,7 @@ private constructor(context: Context) {
 		
 		val nameOut = getNameFromNumber(number)
 		
-		return LgsUtility.isMatchingName(name, nameOut)
+		return isMatchingName(name, nameOut)
 	}
 	
 	fun getInfoByTitle(title: String): MemberInfo? {

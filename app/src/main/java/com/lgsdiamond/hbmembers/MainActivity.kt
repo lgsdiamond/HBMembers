@@ -22,15 +22,20 @@ import androidx.navigation.ui.*
 import com.google.android.material.navigation.NavigationView
 import com.google.android.material.snackbar.Snackbar
 import com.lgsdiamond.hbmembers.LgsUtility.Companion.getResString
+import com.lgsdiamond.hbmembers.LgsUtility.Companion.initUtility
+import com.lgsdiamond.hbmembers.LgsUtility.Companion.installedPackage
+import com.lgsdiamond.hbmembers.LgsUtility.Companion.openAndroidApp
+import com.lgsdiamond.hbmembers.LgsUtility.Companion.showToastShort
+import com.lgsdiamond.hbmembers.LgsUtility.Companion.titleFace
+import com.lgsdiamond.hbmembers.LgsUtility.Companion.titleFaceSpan
 import com.lgsdiamond.hbmembers.ui.member.MemberFragment
 import kotlinx.android.synthetic.main.content_main.*
 
 
 class MainActivity : AppCompatActivity() {
-	val defPreferences: SharedPreferences by lazy { getSharedPreferences(PREF_NAME, 0) }
-	
-	lateinit var dbAccess: HbDbAccess
-	lateinit var memberFragment: MemberFragment
+	init {
+		gActivity = this@MainActivity           // Global property
+	}
 	
 	companion object {
 		const val TAG = "HBMembers"
@@ -86,9 +91,10 @@ class MainActivity : AppCompatActivity() {
 		fun popupPendingName(): String = sPendingName
 	}
 	
-	init {
-		gActivity = this@MainActivity           // Global property
-	}
+	val defPreferences: SharedPreferences by lazy { getSharedPreferences(PREF_NAME, 0) }
+	
+	lateinit var dbAccess: HbDbAccess
+	lateinit var memberFragment: MemberFragment
 	
 	private lateinit var appBarConfiguration: AppBarConfiguration
 	
@@ -96,6 +102,9 @@ class MainActivity : AppCompatActivity() {
 		super.onCreate(savedInstanceState)
 		
 		setContentView(R.layout.activity_main)
+		
+		// Utility initialization
+		initUtility(this)
 		
 		val toolbar: Toolbar = findViewById(R.id.toolbar)
 		setSupportActionBar(toolbar)
@@ -122,8 +131,11 @@ class MainActivity : AppCompatActivity() {
 		setupActionBarWithNavController(navController, appBarConfiguration)
 		navView.setupWithNavController(navController)
 		
-		// Utility initialization
-		LgsUtility.initUtility(this)
+		navView.menu.customFaceMenu(titleFace)
+	}
+	
+	override fun onStart() {        // after onCreate
+		super.onStart()
 		
 		// Activate DB access
 		activateDB()
@@ -140,13 +152,13 @@ class MainActivity : AppCompatActivity() {
 		
 		if (dbAccess.isValidMember(registeredNumber, registeredName)) {
 			setRegistered(true)
-			LgsUtility.showToastShort("사용자는 \"$registeredName\"입니다.")
+			showToastShort("사용자는 \"$registeredName\"입니다.")
 			notifyPendingName(registeredName)
 			
 			soundOpening.startOnOff()
 		} else {
 			setRegistered(false)
-			LgsUtility.showToastShort("로그인되지 않았습니다.")
+			showToastShort("로그인되지 않았습니다.")
 			
 			soundSliding.startOnOff()
 			findNavController(R.id.nav_host_fragment).navigate(R.id.action_login)
@@ -159,8 +171,8 @@ class MainActivity : AppCompatActivity() {
 		gIsSoundOn = defPreferences.getBoolean(PREF_KEY_SOUND, true)
 		
 		// checking package installed or not
-		sInstalled_NAVERBand = LgsUtility.installedPackage(NAVERBAND_PACKAGE_ID)
-		sInstalled_KAKAOTalk = LgsUtility.installedPackage(KAKAOTALK_PACKAGE_ID)
+		sInstalled_NAVERBand = installedPackage(NAVERBAND_PACKAGE_ID)
+		sInstalled_KAKAOTalk = installedPackage(KAKAOTALK_PACKAGE_ID)
 		
 		// bind global action buttons
 		with(findNavController(R.id.nav_host_fragment)) {
@@ -181,7 +193,7 @@ class MainActivity : AppCompatActivity() {
 	override fun onCreateOptionsMenu(menu: Menu): Boolean {
 		// Inflate the menu; this adds items to the action bar if it is present.
 		menuInflater.inflate(R.menu.main, menu)
-		
+		menu.customFaceMenu(titleFace)
 		if (menu is MenuBuilder) {
 			menu.setOptionalIconsVisible(true)
 		}
@@ -214,9 +226,9 @@ class MainActivity : AppCompatActivity() {
 				item.setIcon(if (gIsSoundOn) R.drawable.ic_sound_on else R.drawable.ic_sound_off)
 			}
 			R.id.action_update    -> updateApp()
-			R.id.action_naverband -> LgsUtility.openAndroidApp(NAVERBAND_PACKAGE_ID,
+			R.id.action_naverband -> openAndroidApp(NAVERBAND_PACKAGE_ID,
 				NAVERBAND_PACKAGE_NAME)
-			R.id.action_kakaotalk -> LgsUtility.openAndroidApp(KAKAOTALK_PACKAGE_ID,
+			R.id.action_kakaotalk -> openAndroidApp(KAKAOTALK_PACKAGE_ID,
 				KAKAOTALK_PACKAGE_NAME)
 			
 			R.id.action_finish    -> finishApp(false)
@@ -227,14 +239,14 @@ class MainActivity : AppCompatActivity() {
 	private fun finishApp(toAsk: Boolean) {
 		if (toAsk) {
 			val builder = AlertDialog.Builder(this)
-				.setTitle(LgsUtility.titleFaceSpan("종료"))
-				.setMessage(LgsUtility.titleFaceSpan("\"한백인\"앱을 종료할까요?"))
-				.setPositiveButton(LgsUtility.titleFaceSpan("예")) { _, _ ->
+				.setTitle(titleFaceSpan("종료"))
+				.setMessage(titleFaceSpan("\"한백인\"앱을 종료할까요?"))
+				.setPositiveButton(titleFaceSpan("예")) { _, _ ->
 					moveTaskToBack(true)
 					finish()
 					android.os.Process.killProcess(android.os.Process.myPid())
 				}
-				.setNegativeButton(LgsUtility.titleFaceSpan("아니요"), null)
+				.setNegativeButton(titleFaceSpan("아니요"), null)
 			
 			val dialog = builder.create()
 			dialog.setIcon(R.drawable.ic_finish)
