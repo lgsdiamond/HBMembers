@@ -321,13 +321,13 @@ class MainActivity : AppCompatActivity() {
 	
 	
 	// backPressed
-	override fun onBackPressed() {
+/*	override fun onBackPressed() {
 		val fm = supportFragmentManager
 		val count = fm.backStackEntryCount
 		if (count > 0)
 			super.onBackPressed() else finishApp(true)
 	}
-	
+*/
 	// navigation boxes
 	fun showNavActionButtons() {
 		loActionButtons?.visibility = View.VISIBLE

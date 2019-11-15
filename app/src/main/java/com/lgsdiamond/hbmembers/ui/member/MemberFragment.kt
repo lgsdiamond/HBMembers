@@ -24,6 +24,7 @@ import com.kakao.network.callback.ResponseCallback
 import com.kakao.util.KakaoParameterException
 import com.kakao.util.helper.log.Logger
 import com.lgsdiamond.hbmembers.*
+import com.lgsdiamond.hbmembers.LgsUtility.Companion.animateCenterScale
 import com.lgsdiamond.hbmembers.LgsUtility.Companion.contentFace
 import com.lgsdiamond.hbmembers.LgsUtility.Companion.correctCompanyName
 import com.lgsdiamond.hbmembers.LgsUtility.Companion.getPhoneNumber

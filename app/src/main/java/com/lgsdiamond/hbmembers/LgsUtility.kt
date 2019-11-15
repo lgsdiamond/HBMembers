@@ -210,7 +210,7 @@ class LgsUtility {
 			intent.data = uri
 			try {
 				sActivity.startActivity(intent)
-			} catch (e: Exception) {
+			} catch (e: SecurityException) {
 				e.printStackTrace()
 			}
 		}
