@@ -132,10 +132,6 @@ class MainActivity : AppCompatActivity() {
 		navView.setupWithNavController(navController)
 		
 		navView.menu.customFaceMenu(titleFace)
-	}
-	
-	override fun onStart() {        // after onCreate
-		super.onStart()
 		
 		// Activate DB access
 		activateDB()

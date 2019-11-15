@@ -27,7 +27,7 @@ android {
     }
     buildTypes {
         release {
-            minifyEnabled false
+            minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
             signingConfig signingConfigs.release
         }
@@ -88,7 +88,7 @@ dependencies {
     // for firebase
     implementation 'com.google.firebase:firebase-analytics:17.2.1'
     implementation 'com.google.firebase:firebase-database:19.2.0'
-    implementation 'com.google.firebase:firebase-messaging:20.0.0'      // remove crash in clean run
+    implementation 'com.google.firebase:firebase-messaging:20.0.1'      // remove crash in clean run
 }
 
 // for firebase
