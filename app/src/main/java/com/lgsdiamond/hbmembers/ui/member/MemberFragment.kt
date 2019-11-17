@@ -120,9 +120,8 @@ class MemberFragment : Fragment() {
 			
 			showSoftKeyboard(false)
 			val strName = edtFindName.text.toString().removeWhitespaces()
-			var strContact = edtContact.text.toString().removeWhitespaces()
-			
-			strContact = strContact.onlyDigits()
+			var strContact =
+				if (strName.isEmpty()) edtContact.text.toString().removeWhitespaces().onlyDigits() else ""
 			
 			if (strName.isEmpty() && (strContact.length < 4)) {
 				"검색할 전화번호는 최소 4자리 이상이어야 합니다.".toSnackBarOK(edtContact)
@@ -641,10 +640,11 @@ class MemberFragment : Fragment() {
 						 contact: String = ""): HbDbAccess.MemberInfo? {
 		
 		var member: HbDbAccess.MemberInfo? = null
-		if (contact.isNotEmpty())
-			member = gActivity.dbAccess.getMemberInfoByContact(contact, v)
-		if ((member == null) && name.isNotEmpty())
+		if (name.isNotEmpty())
 			member = gActivity.dbAccess.getMemberInfoByName(name, v)
+		
+		if ((member == null) && contact.isNotEmpty())
+			member = gActivity.dbAccess.getMemberInfoByContact(contact, v)
 		
 		populateMemberInfo(member)
 		return member
