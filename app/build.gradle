@@ -20,8 +20,8 @@ android {
         applicationId "com.lgsdiamond.hbmembers"
         minSdkVersion 21
         targetSdkVersion 29
-        versionCode 36      // to be - 2019.11.15
-        versionName "9.9"   // to be - 2019.11.15
+        versionCode 37      // 2019.11.15
+        versionName "10.0"   // 2019.11.15
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         signingConfig signingConfigs.release
     }
