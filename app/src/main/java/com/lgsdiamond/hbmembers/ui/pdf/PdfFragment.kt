@@ -7,8 +7,11 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import com.github.barteksc.pdfviewer.util.FitPolicy
-import com.lgsdiamond.hbmembers.*
-import com.lgsdiamond.hbmembers.LgsUtility.Companion.animateCenterScale
+import com.lgsdiamond.hbmembers.FILENAME_BOARD
+import com.lgsdiamond.hbmembers.FILENAME_REPORT
+import com.lgsdiamond.hbmembers.R
+import com.lgsdiamond.hbmembers.gActivity
+import com.lgsdiamond.lgsutility.LgsUtility.Companion.animateCenterScale
 import kotlinx.android.synthetic.main.fragment_pdf.*
 
 abstract class PdfFragment : Fragment() {

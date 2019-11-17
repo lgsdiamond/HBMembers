@@ -1,2 +1,3 @@
-include ':app'
+include ':app', ':LgsUtility'
 rootProject.name='HBMembers'
+project(':LgsUtility').projectDir = new File("E:/Development/Projects/LgsUtility")

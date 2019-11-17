@@ -8,10 +8,10 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import com.lgsdiamond.hbmembers.HbDbHelper
-import com.lgsdiamond.hbmembers.LgsUtility.Companion.contentFace
-import com.lgsdiamond.hbmembers.LgsUtility.Companion.countCommaItems
 import com.lgsdiamond.hbmembers.R
 import com.lgsdiamond.hbmembers.gActivity
+import com.lgsdiamond.lgsutility.LgsUtility.Companion.contentFace
+import com.lgsdiamond.lgsutility.LgsUtility.Companion.countCommaItems
 import kotlinx.android.synthetic.main.fragment_single_item.view.*
 import java.util.*
 

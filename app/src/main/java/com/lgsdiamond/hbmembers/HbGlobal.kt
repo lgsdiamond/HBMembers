@@ -32,7 +32,6 @@ const val FILENAME_DB: String = "hb_members.db"
 const val FILENAME_BOARD: String = "hb_board.pdf"
 const val FILENAME_REPORT: String = "hb_report.pdf"
 
-
 //=== global class ===
 
 class ClickableNameTextView : AppCompatTextView {
@@ -101,7 +100,6 @@ class ClickableNameTextView : AppCompatTextView {
 	private inner class ClickableNameSpan(var mName: String) : ClickableSpan() {
 		
 		override fun onClick(view: View) {
-			soundClick.startOnOff()
 			MainActivity.notifyPendingName(mName)
 			findNavController().navigate(R.id.nav_member)
 		}

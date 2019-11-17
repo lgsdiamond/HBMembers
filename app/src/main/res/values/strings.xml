@@ -66,7 +66,4 @@
     <string name="permission_available_sms">SEND_SMS 권한이 승인되었습니다.</string>
     <string name="permission_denied_sms">SEND_SMS 권한이 거부되었습니다.</string>
 
-    <!-- for buttons -->
-    <string name="ok_confirm">확인</string>
-
 </resources>

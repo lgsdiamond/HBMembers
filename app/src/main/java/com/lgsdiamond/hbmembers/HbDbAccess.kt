@@ -6,11 +6,12 @@ import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
 import android.view.View
 import android.widget.PopupMenu
-import com.lgsdiamond.hbmembers.LgsUtility.Companion.isMatchingName
-import com.lgsdiamond.hbmembers.LgsUtility.Companion.showSoftKeyboard
-import com.lgsdiamond.hbmembers.LgsUtility.Companion.titleFace
+import com.lgsdiamond.hbmembers.HbUtility.Companion.isMatchingName
 import com.lgsdiamond.hbmembers.MainActivity.Companion.PREF_KEY_CONTACT
 import com.lgsdiamond.hbmembers.MainActivity.Companion.PREF_KEY_MEMO
+import com.lgsdiamond.lgsutility.LgsUtility.Companion.showSoftKeyboard
+import com.lgsdiamond.lgsutility.LgsUtility.Companion.titleFace
+import com.lgsdiamond.lgsutility.customFaceMenu
 import com.readystatesoftware.sqliteasset.SQLiteAssetHelper
 
 /**
@@ -239,7 +240,6 @@ private constructor(context: Context) {
 			cursor?.close()
 		}
 	}
-	
 	
 	private fun getSingleAll(
 		singleId: String,

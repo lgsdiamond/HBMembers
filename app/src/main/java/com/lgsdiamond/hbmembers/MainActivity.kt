@@ -21,14 +21,16 @@ import androidx.navigation.findNavController
 import androidx.navigation.ui.*
 import com.google.android.material.navigation.NavigationView
 import com.google.android.material.snackbar.Snackbar
-import com.lgsdiamond.hbmembers.LgsUtility.Companion.getResString
-import com.lgsdiamond.hbmembers.LgsUtility.Companion.initUtility
-import com.lgsdiamond.hbmembers.LgsUtility.Companion.installedPackage
-import com.lgsdiamond.hbmembers.LgsUtility.Companion.openAndroidApp
-import com.lgsdiamond.hbmembers.LgsUtility.Companion.showToastShort
-import com.lgsdiamond.hbmembers.LgsUtility.Companion.titleFace
-import com.lgsdiamond.hbmembers.LgsUtility.Companion.titleFaceSpan
 import com.lgsdiamond.hbmembers.ui.member.MemberFragment
+import com.lgsdiamond.lgsutility.LgsUtility.Companion.getResString
+import com.lgsdiamond.lgsutility.LgsUtility.Companion.initLgsUtility
+import com.lgsdiamond.lgsutility.LgsUtility.Companion.installedPackage
+import com.lgsdiamond.lgsutility.LgsUtility.Companion.openAndroidApp
+import com.lgsdiamond.lgsutility.LgsUtility.Companion.showToastShort
+import com.lgsdiamond.lgsutility.LgsUtility.Companion.titleFace
+import com.lgsdiamond.lgsutility.LgsUtility.Companion.titleFaceSpan
+import com.lgsdiamond.lgsutility.customFaceMenu
+import com.lgsdiamond.lgsutility.toToastTitle
 import kotlinx.android.synthetic.main.content_main.*
 
 
@@ -104,7 +106,7 @@ class MainActivity : AppCompatActivity() {
 		setContentView(R.layout.activity_main)
 		
 		// Utility initialization
-		initUtility(this)
+		initLgsUtility(this)
 		
 		val toolbar: Toolbar = findViewById(R.id.toolbar)
 		setSupportActionBar(toolbar)
@@ -196,7 +198,7 @@ class MainActivity : AppCompatActivity() {
 		menu.findItem(R.id.action_sound)
 			.setIcon(if (gIsSoundOn) R.drawable.ic_sound_on else R.drawable.ic_sound_off)
 		
-		return true
+		return super.onCreateOptionsMenu(menu)
 	}
 	
 	override fun onSupportNavigateUp(): Boolean {

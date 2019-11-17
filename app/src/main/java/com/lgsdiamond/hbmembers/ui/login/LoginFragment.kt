@@ -9,13 +9,14 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
 import com.lgsdiamond.hbmembers.*
-import com.lgsdiamond.hbmembers.LgsUtility.Companion.isMatchingName
-import com.lgsdiamond.hbmembers.LgsUtility.Companion.showSoftKeyboard
-import com.lgsdiamond.hbmembers.LgsUtility.Companion.showToastShort
+import com.lgsdiamond.hbmembers.HbUtility.Companion.isMatchingName
 import com.lgsdiamond.hbmembers.MainActivity.Companion.ADMIN_NAME
 import com.lgsdiamond.hbmembers.MainActivity.Companion.ADMIN_NUMBER
 import com.lgsdiamond.hbmembers.MainActivity.Companion.ADMIN_REAL_NAME
 import com.lgsdiamond.hbmembers.MainActivity.Companion.setRegistered
+import com.lgsdiamond.lgsutility.LgsUtility.Companion.showSoftKeyboard
+import com.lgsdiamond.lgsutility.LgsUtility.Companion.showToastShort
+import com.lgsdiamond.lgsutility.removeWhitespaces
 import kotlinx.android.synthetic.main.fragment_login.*
 
 class LoginFragment : Fragment() {
@@ -77,7 +78,8 @@ class LoginFragment : Fragment() {
 					showToastShort("유효한 회원 정보가 아닙니다.")
 					soundSliding.startOnOff()
 				}
-			} else { showToastShort("입력내용이 적합하지 않습니다.")
+			} else {
+				showToastShort("입력내용이 적합하지 않습니다.")
 				soundSliding.startOnOff()
 			}
 			showSoftKeyboard(false)
