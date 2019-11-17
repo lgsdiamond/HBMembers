@@ -86,10 +86,10 @@ dependencies {
     implementation group: 'com.kakao.sdk', name: 'push', version: project.KAKAO_SDK_VERSION
 
     // for firebase
-//    implementation 'com.google.firebase:firebase-analytics:17.2.1'
-//    implementation 'com.google.firebase:firebase-database:19.2.0'
-//    implementation 'com.google.firebase:firebase-messaging:20.0.1'      // remove crash in clean run
+    implementation 'com.google.firebase:firebase-analytics:17.2.1'
+    implementation 'com.google.firebase:firebase-database:19.2.0'
+    implementation 'com.google.firebase:firebase-messaging:20.0.1'      // remove crash in clean run
 }
 
 // for firebase
-//apply plugin: 'com.google.gms.google-services'
+apply plugin: 'com.google.gms.google-services'
