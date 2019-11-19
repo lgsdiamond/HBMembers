@@ -9,9 +9,9 @@ import android.widget.PopupMenu
 import com.lgsdiamond.hbmembers.HbUtility.Companion.isMatchingName
 import com.lgsdiamond.hbmembers.MainActivity.Companion.PREF_KEY_CONTACT
 import com.lgsdiamond.hbmembers.MainActivity.Companion.PREF_KEY_MEMO
-import com.lgsdiamond.lgsutility.LgsUtility.Companion.showSoftKeyboard
-import com.lgsdiamond.lgsutility.LgsUtility.Companion.titleFace
-import com.lgsdiamond.lgsutility.customFaceMenu
+import com.lgsdiamond.lgslibrary.LgsUtility.Companion.showSoftKeyboard
+import com.lgsdiamond.lgslibrary.LgsUtility.Companion.titleFace
+import com.lgsdiamond.lgslibrary.customFaceMenu
 import com.readystatesoftware.sqliteasset.SQLiteAssetHelper
 
 /**

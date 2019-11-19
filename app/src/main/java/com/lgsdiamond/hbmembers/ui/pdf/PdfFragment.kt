@@ -11,7 +11,7 @@ import com.lgsdiamond.hbmembers.FILENAME_BOARD
 import com.lgsdiamond.hbmembers.FILENAME_REPORT
 import com.lgsdiamond.hbmembers.R
 import com.lgsdiamond.hbmembers.gActivity
-import com.lgsdiamond.lgsutility.LgsUtility.Companion.animateCenterScale
+import com.lgsdiamond.lgslibrary.LgsUtility.Companion.animateCenterScale
 import kotlinx.android.synthetic.main.fragment_pdf.*
 
 abstract class PdfFragment : Fragment() {

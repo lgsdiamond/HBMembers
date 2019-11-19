@@ -22,15 +22,15 @@ import androidx.navigation.ui.*
 import com.google.android.material.navigation.NavigationView
 import com.google.android.material.snackbar.Snackbar
 import com.lgsdiamond.hbmembers.ui.member.MemberFragment
-import com.lgsdiamond.lgsutility.LgsUtility.Companion.getResString
-import com.lgsdiamond.lgsutility.LgsUtility.Companion.initLgsUtility
-import com.lgsdiamond.lgsutility.LgsUtility.Companion.installedPackage
-import com.lgsdiamond.lgsutility.LgsUtility.Companion.openAndroidApp
-import com.lgsdiamond.lgsutility.LgsUtility.Companion.showToastShort
-import com.lgsdiamond.lgsutility.LgsUtility.Companion.titleFace
-import com.lgsdiamond.lgsutility.LgsUtility.Companion.titleFaceSpan
-import com.lgsdiamond.lgsutility.customFaceMenu
-import com.lgsdiamond.lgsutility.toToastTitle
+import com.lgsdiamond.lgslibrary.LgsUtility.Companion.getResString
+import com.lgsdiamond.lgslibrary.LgsUtility.Companion.initLgsUtility
+import com.lgsdiamond.lgslibrary.LgsUtility.Companion.installedPackage
+import com.lgsdiamond.lgslibrary.LgsUtility.Companion.openAndroidApp
+import com.lgsdiamond.lgslibrary.LgsUtility.Companion.showToastShort
+import com.lgsdiamond.lgslibrary.LgsUtility.Companion.titleFace
+import com.lgsdiamond.lgslibrary.LgsUtility.Companion.titleFaceSpan
+import com.lgsdiamond.lgslibrary.customFaceMenu
+import com.lgsdiamond.lgslibrary.toToastTitle
 import kotlinx.android.synthetic.main.content_main.*
 
 

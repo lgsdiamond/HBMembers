@@ -5,7 +5,7 @@ import android.text.Spannable
 import android.text.SpannableString
 import android.text.style.ForegroundColorSpan
 import android.text.style.RelativeSizeSpan
-import com.lgsdiamond.lgsutility.removeWhitespaces
+import com.lgsdiamond.lgslibrary.removeWhitespaces
 
 /**
  * Created by LgsDiamond on 2018-02-18.

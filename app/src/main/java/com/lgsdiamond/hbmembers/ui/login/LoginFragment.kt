@@ -14,9 +14,9 @@ import com.lgsdiamond.hbmembers.MainActivity.Companion.ADMIN_NAME
 import com.lgsdiamond.hbmembers.MainActivity.Companion.ADMIN_NUMBER
 import com.lgsdiamond.hbmembers.MainActivity.Companion.ADMIN_REAL_NAME
 import com.lgsdiamond.hbmembers.MainActivity.Companion.setRegistered
-import com.lgsdiamond.lgsutility.LgsUtility.Companion.showSoftKeyboard
-import com.lgsdiamond.lgsutility.LgsUtility.Companion.showToastShort
-import com.lgsdiamond.lgsutility.removeWhitespaces
+import com.lgsdiamond.lgslibrary.LgsUtility.Companion.showSoftKeyboard
+import com.lgsdiamond.lgslibrary.LgsUtility.Companion.showToastShort
+import com.lgsdiamond.lgslibrary.removeWhitespaces
 import kotlinx.android.synthetic.main.fragment_login.*
 
 class LoginFragment : Fragment() {

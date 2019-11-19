@@ -10,10 +10,10 @@ import androidx.lifecycle.ViewModelProviders
 import com.lgsdiamond.hbmembers.HbDbAccess
 import com.lgsdiamond.hbmembers.R
 import com.lgsdiamond.hbmembers.gActivity
-import com.lgsdiamond.lgsutility.LgsUtility.Companion.sendSMS
-import com.lgsdiamond.lgsutility.LgsUtility.Companion.showSoftKeyboard
-import com.lgsdiamond.lgsutility.LgsUtility.Companion.titleFace
-import com.lgsdiamond.lgsutility.toToastTitle
+import com.lgsdiamond.lgslibrary.LgsUtility.Companion.sendSMS
+import com.lgsdiamond.lgslibrary.LgsUtility.Companion.showSoftKeyboard
+import com.lgsdiamond.lgslibrary.LgsUtility.Companion.titleFace
+import com.lgsdiamond.lgslibrary.toToastTitle
 import kotlinx.android.synthetic.main.fragment_message.*
 
 class MessageFragment : Fragment() {
