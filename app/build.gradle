@@ -91,7 +91,7 @@ dependencies {
     implementation 'com.google.firebase:firebase-messaging:20.0.1'      // remove crash in clean run
 
     // for external library
-    implementation project(':lgslibray')
+    implementation project(':lgslibrary')
 }
 
 // for firebase
